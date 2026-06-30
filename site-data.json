@@ -1,0 +1,43 @@
+{
+  "brand": {
+    "name": "AutoCensoR",
+    "platform": "Windows",
+    "tagline": "이미지 폴더의 보호할 영역을 자동으로 찾고, 필요한 부분만 사람이 빠르게 다듬습니다.",
+    "summary": "폴더 선택 → 모델 로드 → 일괄 처리 → 필요한 부분만 수동 보정."
+  },
+  "links": {
+    "github": "https://github.com/JHKS24/AutoCensoR",
+    "download": "downloads.html",
+    "model": "https://github.com/JHKS24/AutoCensoR#model-placement",
+    "quickstart": "quickstart.html",
+    "manual": "tistory/AutoCensoR_Tistory_Manual_Full.html",
+    "guide": "guide.html",
+    "comparison": "comparison.html",
+    "feedback": "support.html",
+    "patchNotes": "patch-notes.html"
+  },
+  "downloads": {
+    "source": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-source.zip",
+    "legacyPython": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Legacy-Python.zip",
+    "cpuOnly": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-CPU_Only.zip",
+    "full": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Full.zip"
+  },
+  "support": {
+    "githubStar": "https://github.com/JHKS24/AutoCensoR",
+    "sponsors": "",
+    "buyMeACoffee": "",
+    "kofi": ""
+  },
+  "contact": {
+    "tistoryComments": true,
+    "tistoryPostUrl": "tistory/AutoCensoR_Tistory_Manual_Full.html",
+    "email": "zeus30313@gmail.com",
+    "commercialEmail": "zeus30313@gmail.com",
+    "commercialEmailLink": "mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry"
+  },
+  "meta": {
+    "locale": "ko-KR",
+    "updated": "2026-06",
+    "hosting": "static site with Tistory comments"
+  }
+}

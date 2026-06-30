@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>매뉴얼 : AutoCensoR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AutoCensoR 전체 매뉴얼 : 폴더 선택, 모델 로드, 일괄 처리, 수동 보정, 영역 감지, 퀵마스크, 설정·단축키, 자동 저장.">
+  <link rel="icon" type="image/png" href="assets/app-icon.png">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+  <header class="doc-top">
+    <div class="ac-shell doc-top__in">
+      <a class="doc-brand" href="index.html"><img class="doc-brand__ic" src="assets/app-icon.png" alt="" width="24" height="24">AutoCensoR</a>
+      <button data-ac-nav-toggle aria-expanded="false" aria-controls="doc-menu" aria-label="메뉴">메뉴</button>
+      <nav id="doc-menu" class="doc-nav" data-ac-nav aria-label="문서 메뉴">
+        <a href="quickstart.html">빠른 시작</a>
+        <a href="manual.html" aria-current="page">매뉴얼</a>
+        <a href="guide.html">개념 가이드</a>
+        <a href="comparison.html">비교</a>
+        <a data-ac-href="links.download" href="#" rel="noopener">다운로드</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ac-shell">
+    <section class="doc-hero">
+      <p class="doc-kicker">Manual · 전체 사용법</p>
+      <h1 class="doc-h1">AutoCensoR 매뉴얼</h1>
+      <p class="doc-lede">폴더 선택부터 자동 저장까지, 앱 화면과 단축키를 기준으로 정리했습니다. 화면은 앱 작업 화면 예시이며, 설명용 다이어그램만 따로 표시했습니다. 기준은 릴리스 패키지(AutoCensoR · CPU 전용)입니다.</p>
+      <figure class="doc-fig" style="max-width:880px;margin-top:18px">
+        <span class="doc-shot"><img src="assets/release-app.png" alt="AutoCensoR(CPU 전용): 이미지 목록을 불러와 일괄 처리를 시작할 수 있는 작업 화면. 보호 대상 이미지는 비공개 처리됨."></span>
+        <figcaption>AutoCensoR(CPU 전용) 화면 : 보호 대상 이미지는 비공개로 가렸습니다.</figcaption>
+      </figure>
+    </section>
+
+    <div class="doc-wrap">
+      <nav class="doc-toc" aria-label="목차">
+        <strong>목차</strong>
+        <a href="#flow">작업 흐름 한눈에</a>
+        <a href="#folder">1. 폴더 선택</a>
+        <a href="#model">2. 모델 로드</a>
+        <a href="#batch">3. 일괄 처리</a>
+        <a href="#brush">4. 브러시 보정</a>
+        <a href="#region">5. 영역 감지</a>
+        <a href="#quickmask">6. 퀵마스크</a>
+        <a href="#styles">7. 보호 방식</a>
+        <a href="#settings">8. 설정 · 단축키</a>
+        <a href="#save">9. 저장 · 내보내기</a>
+      </nav>
+
+      <div class="doc-body">
+        <!-- live flow -->
+        <article class="doc-step" id="flow">
+          <div class="doc-step__h"><span class="doc-step__n">▣</span><h2>작업 흐름 한눈에</h2></div>
+          <p>단계를 눌러 화면이 어떻게 바뀌는지 확인하세요.</p>
+          <div class="ac-flow" data-ac-workflow style="margin-top:14px">
+            <ol class="ac-flow__steps" role="tablist" aria-label="작업 흐름 단계">
+              <li><button role="tab" data-ac-step="0" data-src="assets/state-empty.png" data-title="① 빈 작업공간" data-alt="앱 화면:빈 작업공간" data-caption="이미지를 불러오기 전 첫 화면입니다.">① 빈 작업공간</button></li>
+              <li><button role="tab" data-ac-step="1" data-src="assets/state-scan.png" data-title="② 폴더 스캔" data-alt="앱 화면:폴더 스캔 후 대기 목록" data-caption="목록이 채워지고 ‘대기 중’으로 표시됩니다.">② 폴더 스캔</button></li>
+              <li><button role="tab" data-ac-step="2" data-src="assets/state-ready.png" data-title="③ 모델 준비" data-alt="앱 화면:모델 준비 완료" data-caption="자동 감지가 준비되어 일괄 처리가 가능합니다.">③ 모델 준비</button></li>
+              <li><button role="tab" data-ac-step="3" data-src="assets/state-processed.png" data-title="④ 일괄 처리" data-alt="앱 화면:일괄 처리 완료" data-caption="감지된 영역에 보호가 적용됩니다. (예시는 테스트 이미지)">④ 일괄 처리</button></li>
+              <li><button role="tab" data-ac-step="4" data-src="assets/manual-correction.png" data-title="⑤ 수동 보정" data-alt="앱 화면:영역 감지로 직접 보정" data-caption="필요한 부분만 직접 다듬습니다.">⑤ 수동 보정</button></li>
+            </ol>
+            <figure class="ac-flow__stage" style="margin-top:16px">
+              <span class="ac-shot"><img data-ac-workflow-img alt=""></span>
+              <figcaption><strong data-ac-workflow-title></strong><span data-ac-workflow-caption></span></figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="doc-step" id="folder">
+          <div class="doc-step__h"><span class="doc-step__n">1</span><h2>폴더 선택</h2></div>
+          <p>상단의 '입력 폴더'에서 입력 폴더를 선택합니다. 폴더 안의 이미지가 왼쪽 목록에 채워지고 ‘대기 중(PENDING)’으로 표시됩니다. 좌측 탭(전체·검열됨·정상·대기 중·실패)으로 상태별로 추릴 수 있습니다.</p>
+          <figure class="doc-fig"><span class="doc-shot"><img src="assets/state-scan.png" alt="앱 화면:폴더 스캔 후 목록에 이미지가 대기 중으로 채워진 상태"></span><figcaption>앱 화면: 폴더 스캔 후 대기 목록.</figcaption></figure>
+        </article>
+
+        <article class="doc-step" id="model">
+          <div class="doc-step__h"><span class="doc-step__n">2</span><h2>모델 로드</h2></div>
+          <p>우측 상단 <span class="doc-key">모델 로드</span>를 누릅니다. 로드 전에는 ‘로드 안 됨’으로 표시되고, 로드 후에는 자동 감지가 준비됩니다. 권장 모델은 아래 가이드를 참고하세요.</p>
+          <figure class="doc-fig doc-fig--crop"><span class="doc-shot"><img src="assets/cursor-loadmodel.png" alt="앱 화면: 상단 오른쪽 모델 로드 영역"></span><figcaption>상단 오른쪽 ‘모델 로드’ 영역. 모델을 불러오면 자동 감지가 켜집니다.</figcaption></figure>
+          <div class="doc-cta"><a class="doc-btn" data-ac-href="links.model" href="#" rel="noopener">권장 모델 가이드</a></div>
+        </article>
+
+        <article class="doc-step" id="batch">
+          <div class="doc-step__h"><span class="doc-step__n">3</span><h2>일괄 처리</h2></div>
+          <p>'일괄 시작'(F5) 버튼으로 폴더 전체를 일괄 처리합니다. 감지된 영역에 보호 방식(모자이크·블러·흑백·단색)이 적용되고, 하단에 처리 완료 개수와 소요 시간이 표시됩니다.</p>
+          <figure class="doc-fig"><span class="doc-shot"><img src="assets/state-processed.png" alt="앱 화면:일괄 처리 완료 화면 (테스트 이미지)"></span><figcaption>앱 화면: 일괄 처리 완료(예시는 테스트 이미지).</figcaption></figure>
+        </article>
+
+        <article class="doc-step" id="brush">
+          <div class="doc-step__h"><span class="doc-step__n">4</span><h2>브러시 보정</h2></div>
+          <p>도구 막대에서 <span class="doc-key">브러시 검열(B)</span>를 선택해 원하는 영역을 직접 칠해 가립니다. 과하게 칠한 곳은 <span class="doc-key">복구/지우개(X)</span>로 되돌립니다. 브러시 크기는 <span class="doc-key">[</span> / <span class="doc-key">]</span>로 조절하고, 한 장을 처음 상태로 되돌리려면 <span class="doc-key">W</span>를 누릅니다.</p>
+          <figure class="doc-fig"><span class="doc-shot"><img src="assets/cursor-tools.png" alt="앱 화면:브러시 검열 도구를 가리키는 커서"></span><figcaption>앱 화면: 도구 막대(브러시 검열 도구 선택).</figcaption></figure>
+        </article>
+
+        <article class="doc-step" id="region">
+          <div class="doc-step__h"><span class="doc-step__n">5</span><h2>영역 감지</h2></div>
+          <p><span class="doc-key">영역 감지(D)</span> 상태에서 오른쪽 버튼으로 사각 영역을 드래그하면, 그 범위를 한 번에 보호합니다. 브러시로 칠하기 번거로운 큰 영역에 편리합니다.</p>
+          <figure class="doc-fig"><span class="doc-shot"><img src="assets/detail-region-detect.png" alt="앱 화면:영역 감지로 사각 영역을 보호한 모습"></span><figcaption>앱 화면: 영역 감지로 지정한 사각 영역에 보호가 적용된 모습.</figcaption></figure>
+        </article>
+
+        <article class="doc-step" id="quickmask">
+          <div class="doc-step__h"><span class="doc-step__n">6</span><h2>퀵마스크</h2></div>
+          <p><span class="doc-key">퀵마스크(A)</span>는 보호 오버레이를 보며 보정할 때 사용합니다. <span class="doc-key">5</span>로 퀵마스크 오버레이를 빠르게 켜고 끌 수 있고, <span class="doc-key">Tab</span>은 원본 미리보기와 대조 확인에 사용합니다.</p>
+          <figure class="doc-fig"><span class="doc-shot"><img src="assets/detail-toolbar.png" alt="앱 화면:상단 도구 막대, 퀵마스크, 모델 로드, 설정"></span><figcaption>앱 화면: 상단 도구 막대.</figcaption></figure>
+        </article>
+
+        <article class="doc-step" id="styles">
+          <div class="doc-step__h"><span class="doc-step__n">7</span><h2>보호 방식</h2></div>
+          <p>단색·흑백·블러·모자이크를 같은 보호 영역에 적용합니다. 방식 선택은 “어떻게 가릴지”만 정하며, 감지 범위나 영역 크기를 바꾸지 않습니다. 아래는 같은 영역에 방식만 바꾼 <strong>예시 이미지</strong>입니다(실제 앱 화면이 아닙니다).</p>
+          <div class="ac-styledemo" data-ac-style-demo style="margin-top:14px">
+            <div class="ac-styledemo__stage"><canvas class="ac-styledemo__canvas" data-ac-style-canvas width="720" height="460" aria-label="보호 방식 예시 이미지 (실제 앱 화면 아님)"></canvas></div>
+            <div class="ac-styledemo__controls" role="group" aria-label="보호 방식 선택">
+              <button type="button" data-ac-style="solid">단색</button>
+              <button type="button" data-ac-style="grayscale">흑백</button>
+              <button type="button" data-ac-style="blur">블러</button>
+              <button type="button" data-ac-style="mosaic" aria-pressed="true">모자이크</button>
+            </div>
+            <p class="ac-styledemo__caption" data-ac-style-caption></p>
+          </div>
+          <div class="doc-callout">감지 민감도는 보호 방식과 <b>다른 설정</b>입니다. 자세한 내용은 <a href="guide.html">개념 가이드</a>를 참고하세요.</div>
+        </article>
+
+        <article class="doc-step" id="settings">
+          <div class="doc-step__h"><span class="doc-step__n">8</span><h2>설정 · 단축키</h2></div>
+          <p>설정(톱니) → 저장/검열/성능/모델/UI/단축키/개인정보 탭에서 동작을 조정합니다. 단축키는 도움말로 확인하거나 설정에서 직접 바꿀 수 있습니다.</p>
+          <div class="doc-grid2">
+            <figure class="doc-fig"><span class="doc-shot"><img src="assets/detail-settings-panel.png" alt="앱 화면:검열 설정 패널"></span><figcaption>앱 화면: 검열 설정 패널.</figcaption></figure>
+            <figure class="doc-fig"><span class="doc-shot"><img src="assets/detail-settings-dialog.png" alt="앱 화면:설정 대화상자 저장 탭"></span><figcaption>앱 화면: 저장 설정 대화상자.</figcaption></figure>
+          </div>
+          <table class="doc-kbd-table">
+            <thead><tr><th>키</th><th>동작</th></tr></thead>
+            <tbody>
+              <tr><td><span class="doc-key">B</span></td><td>브러시 검열</td></tr>
+              <tr><td><span class="doc-key">X</span></td><td>복구/지우개</td></tr>
+              <tr><td><span class="doc-key">D</span></td><td>영역 감지</td></tr>
+              <tr><td><span class="doc-key">E</span></td><td>스탬프 도구</td></tr>
+              <tr><td><span class="doc-key">A</span></td><td>퀵마스크</td></tr>
+              <tr><td><span class="doc-key">5</span></td><td>퀵마스크 오버레이 토글</td></tr>
+              <tr><td><span class="doc-key">F5</span></td><td>일괄 시작</td></tr>
+              <tr><td><span class="doc-key">F9</span></td><td>현재 이미지만 검열</td></tr>
+              <tr><td><span class="doc-key">W</span></td><td>현재 이미지 초기화</td></tr>
+              <tr><td><span class="doc-key">[</span> / <span class="doc-key">]</span></td><td>브러시 크기 줄이기 / 늘리기</td></tr>
+              <tr><td><span class="doc-key">Ctrl+Z</span> / <span class="doc-key">Ctrl+Y</span></td><td>실행 취소 / 다시 실행</td></tr>
+              <tr><td><span class="doc-key">Ctrl+Shift+Z</span></td><td>대체 다시 실행</td></tr>
+              <tr><td><span class="doc-key">←</span> / <span class="doc-key">→</span></td><td>이전 / 다음 이미지</td></tr>
+              <tr><td><span class="doc-key">Tab</span></td><td>원본과 대조 확인</td></tr>
+            </tbody>
+          </table>
+          <figure class="doc-fig doc-fig--crop"><span class="doc-shot"><img src="assets/detail-shortcut-settings.png" alt="앱 화면: 단축키 설정 화면 (동작별 단축키 지정)"></span><figcaption>앱 화면: 단축키 설정(동작별로 키를 바꿀 수 있음).</figcaption></figure>
+        </article>
+
+        <article class="doc-step" id="save">
+          <div class="doc-step__h"><span class="doc-step__n">9</span><h2>저장 · 내보내기</h2></div>
+          <p>처리와 보정 결과는 작업을 진행하는 동안 <strong>자동으로 적용·저장</strong>됩니다. 출력 폴더에 접미사를 붙여 저장되며, 별도의 수동 저장 단계를 누를 필요는 없습니다. 출력 형식·품질·파일명 접미사·출력 폴더는 설정 → 저장에서 바꿀 수 있습니다.</p>
+          <div class="doc-callout"><b>참고</b> : 앱이 별도의 ‘저장’ 단계를 강제하지 않습니다. 흐름을 진행하면 결과가 출력 폴더에 반영됩니다.</div>
+          <div class="doc-cta"><a class="doc-btn doc-btn--primary" data-ac-href="links.download" href="#" rel="noopener">다운로드</a><a class="doc-btn" href="comparison.html">방식·민감도 비교</a></div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="doc-foot">
+    <div class="ac-shell">
+      <p><b>AutoCensoR</b> · Windows 이미지 보호 도구 · © <span data-ac-year>2026</span> · 문의는 Tistory 댓글로 남겨 주세요.</p>
+    </div>
+  </footer>
+
+  <script type="application/json" id="ac-site-data">{"brand":{"name":"AutoCensoR","platform":"Windows","tagline":"이미지 폴더의 보호할 영역을 자동으로 찾고, 필요한 부분만 사람이 빠르게 다듬습니다.","summary":"폴더 선택 → 모델 로드 → 일괄 처리 → 필요한 부분만 수동 보정."},"links":{"github":"https://github.com/JHKS24/AutoCensoR","download":"downloads.html","model":"https://github.com/JHKS24/AutoCensoR#model-placement","quickstart":"quickstart.html","manual":"manual.html","guide":"guide.html","comparison":"comparison.html"},"support":{"githubStar":"https://github.com/JHKS24/AutoCensoR","sponsors":"","buyMeACoffee":"","kofi":""},"contact":{"tistoryComments":true,"email":"zeus30313@gmail.com"},"meta":{"locale":"ko-KR","updated":"2026-06","note":"공개 링크 설정"}}</script>
+  <script src="assets/engine.js"></script>
+</body>
+</html>

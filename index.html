@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>AutoCensoR · 이미지 폴더 보호 자동화 (Windows)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AutoCensoR는 이미지 폴더의 보호할 영역을 자동으로 찾고, 필요한 부분만 사람이 빠르게 다듬는 Windows 앱입니다.">
+  <link rel="icon" type="image/png" href="assets/app-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hr-head">
+    <div class="ac-shell hr-head__in">
+      <a class="hr-brand" href="#top"><span class="hr-brand__a" aria-hidden="true"><img src="assets/app-icon.png" alt="" width="30" height="30"></span>AutoCensoR</a>
+      <button data-ac-nav-toggle aria-expanded="false" aria-controls="hr-menu" aria-label="메뉴">메뉴</button>
+      <nav id="hr-menu" class="hr-nav" data-ac-nav aria-label="주요 메뉴">
+        <a href="#flow">작업 흐름</a>
+        <a href="#styles">보호 방식</a>
+        <a href="#sensitivity">감지 민감도</a>
+        <a href="#tools">도구</a>
+        <a href="downloads.html">배포 파일</a>
+        <a href="support.html">문의</a>
+        <a class="hr-nav__cta" data-ac-href="links.download" href="#" rel="noopener">다운로드</a>
+        <span class="hr-lang" aria-label="Language">
+          <a aria-current="page" href="index.html">KR</a>
+          <a href="en/index.html">EN</a>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hr-hero">
+      <div class="ac-shell hr-hero__grid">
+        <div>
+          <span class="hr-greet">직접 쓰려고 만든 이미지 폴더 보호 도구</span>
+          <h1 class="hr-h1">폴더는 맡겨 두고,<br><em class="hr-mark">필요한 부분만</em> 손보세요.</h1>
+          <p class="hr-lede" data-ac-text="brand.tagline">
+            AutoCensoR는 이미지 폴더의 보호할 영역을 자동으로 찾고, 필요한 부분만 사람이 빠르게 다듬습니다.
+          </p>
+          <div class="hr-cards">
+            <div class="hr-mini"><b><span class="hr-mini__n">1</span> 폴더 선택</b><span>이미지 폴더를 스캔해요.</span></div>
+            <div class="hr-mini"><b><span class="hr-mini__n">2</span> 모델 로드</b><span>모델 파일을 불러와요.</span></div>
+            <div class="hr-mini"><b><span class="hr-mini__n">3</span> 일괄 처리</b><span>폴더 전체를 한 번에.</span></div>
+            <div class="hr-mini"><b><span class="hr-mini__n">4</span> 수동 보정</b><span>필요한 곳만 다듬어요.</span></div>
+          </div>
+          <div class="hr-actions">
+            <a class="hr-btn hr-btn--primary" data-ac-href="links.download" href="#" rel="noopener">다운로드</a>
+            <a class="hr-btn hr-btn--ghost" data-ac-href="links.github" href="#" rel="noopener">GitHub ☆ Star</a>
+          </div>
+          <p class="hr-commercial">상업적 도입, 유료 배포, 제품/서비스 번들 문의는 <span class="hr-nowrap"><a data-ac-href="contact.commercialEmailLink" href="mailto:zeus30313@gmail.com">메일</a>로</span> 연락해 주세요.</p>
+        </div>
+        <figure class="hr-polaroid">
+          <span class="ac-shot"><img src="assets/release-app.png" alt="AutoCensoR 작업 화면: 모델 준비 완료 상태"></span>
+          <figcaption>AutoCensoR 작업 화면: 모델이 준비된 상태예요.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- WHY (personal note) -->
+    <section class="hr-sec" id="why" style="padding-top:0">
+      <div class="ac-shell">
+        <div class="hr-note">
+          <h3>왜 만들었나요?</h3>
+          <p>이미지 폴더를 통째로 정리할 때 매번 같은 곳을 손으로 가리는 게 번거로웠어요. 그래서 “자동이 먼저 훑고, 사람은 마무리만” 하도록 만들었습니다. 완벽하진 않지만, 실제로 매일 쓰면서 다듬고 있어요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section class="hr-sec" id="flow">
+      <div class="ac-shell">
+        <div class="hr-sec__head" style="max-width:none;text-align:center;margin-inline:auto">
+          <p class="hr-sec__kicker">작업 흐름</p>
+          <h2 class="hr-sec__title">빈 화면에서 보정까지, 단계별로 따라와요</h2>
+          <p class="hr-sec__sub" style="margin-inline:auto">아래 화면은 단계별 작업 흐름 미리보기예요. 단계를 누르면 화면·설명·포인트가 함께 바뀌어요.</p>
+        </div>
+        <div class="ac-flow" data-ac-workflow>
+          <ol class="ac-flow__steps" role="tablist" aria-label="작업 흐름 단계">
+            <li><button role="tab" data-ac-step="0" data-src="assets/state-empty.png" data-alt="앱 화면:빈 작업공간 화면" data-caption="아직 이미지를 불러오기 전 첫 화면이에요. 폴더를 열기 전에는 ‘로드 안 됨’으로 표시돼요." data-callouts="왼쪽 이미지 목록이 비어 있어요|상단의 ‘입력 폴더’·‘모델 로드’ 버튼|오른쪽 검열 설정을 미리 맞춰 둘 수 있어요"><span class="ac-flow__num">1</span>빈 작업공간</button></li>
+            <li><button role="tab" data-ac-step="1" data-src="assets/state-scan.png" data-alt="앱 화면:폴더 스캔 후 대기 목록" data-caption="이미지가 목록에 채워지고 ‘대기 중’으로 표시돼요. 모델은 아직 준비 전이에요." data-callouts="왼쪽 목록에 파일이 채워져요|각 항목이 ‘대기 중(PENDING)’으로 표시돼요|상태 탭(전체·검열됨·정상·대기 중·실패)으로 추려 봐요"><span class="ac-flow__num">2</span>폴더 스캔</button></li>
+            <li><button role="tab" data-ac-step="2" data-src="assets/state-ready.png" data-alt="앱 화면:모델 준비 완료" data-caption="모델 파일을 불러오면 자동 감지와 일괄 처리를 시작할 수 있어요." data-callouts="상단 상태가 ‘로드됨’으로 바뀌어요|모델 상태가 준비 완료로 바뀌어요|‘일괄 시작’(F5)으로 처리 시작"><span class="ac-flow__num">3</span>모델 준비</button></li>
+            <li><button role="tab" data-ac-step="3" data-src="assets/state-processed.png" data-alt="앱 화면:일괄 처리 완료" data-caption="감지된 곳에 보호가 적용돼요. 화면의 예시는 테스트 이미지예요." data-callouts="감지된 영역에 보호가 적용돼요|하단에 처리 개수·소요 시간이 보여요|목록 항목이 ‘검열됨/정상’으로 바뀌어요"><span class="ac-flow__num">4</span>일괄 처리</button></li>
+            <li><button role="tab" data-ac-step="4" data-src="assets/manual-correction.png" data-alt="앱 화면:영역 감지로 직접 보정" data-caption="필요한 부분만 직접 다듬어요. 결과는 자동으로 저장돼요." data-callouts="브러시 커서로 필요한 곳만 보정해요|영역 감지에서 오른쪽 버튼으로 드래그해 한 번에 보정해요|결과는 자동으로 저장돼요"><span class="ac-flow__num">5</span>수동 보정</button></li>
+          </ol>
+          <div class="ac-flow__main">
+            <figure class="ac-flow__figure">
+              <span class="ac-shot ac-shot--flow"><img data-ac-workflow-img alt=""></span>
+              <figcaption data-ac-workflow-caption></figcaption>
+            </figure>
+            <aside class="ac-flow__detail" aria-live="polite">
+              <p class="ac-flow__detail-kicker">이 화면에서 볼 점</p>
+              <ul class="ac-flow__callouts" data-ac-workflow-callouts></ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODEL LOAD -->
+    <section class="hr-sec" id="model">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">모델 로드</p>
+          <h2 class="hr-sec__title">불러오기 전과 후, 직접 눌러 보세요</h2>
+          <p class="hr-sec__sub">로드 전에는 자동 감지가 동작하지 않아요. 로드 후에 일괄 처리가 가능해져요.</p>
+        </div>
+        <div class="hr-card ac-modelload" data-ac-modelload>
+          <div class="ac-modelload__tabs" role="group" aria-label="모델 로드 상태 전환">
+            <button type="button" data-ac-mode="before" data-src="assets/state-scan.png"
+              data-alt="앱 화면:입력 폴더를 불러왔지만 모델은 로드되지 않은 상태" data-caption="입력 폴더를 불러온 상태예요. 목록은 채워졌지만 모델은 아직 로드되지 않았어요." data-status="로드 안 됨">로드 전</button>
+            <button type="button" data-ac-mode="after" data-src="assets/state-ready.png"
+              data-alt="앱 화면:모델 준비 완료" data-caption="모델이 준비됐어요. 자동 감지와 일괄 처리를 시작할 수 있어요." data-status="준비 완료">로드 후</button>
+          </div>
+          <figure class="ac-modelload__figure" style="margin-top:14px">
+            <span class="ac-shot"><img data-ac-modelload-img alt=""><span class="ac-shot__pill" data-ac-modelload-status></span></span>
+            <figcaption data-ac-modelload-caption></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- STYLES -->
+    <section class="hr-sec" id="styles">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">보호 방식</p>
+          <h2 class="hr-sec__title">같은 영역, 마음에 드는 방식으로</h2>
+          <p class="hr-sec__sub">단색·흑백·블러·모자이크를 <b>같은 보호 영역</b>에 적용해요. 방식을 바꿔도 감지 범위나 영역 크기는 그대로예요.</p>
+        </div>
+        <div class="hr-2">
+          <div class="hr-card ac-styledemo" data-ac-style-demo>
+            <div class="ac-styledemo__stage"><canvas class="ac-styledemo__canvas" data-ac-style-canvas width="720" height="460" aria-label="보호 방식 예시 이미지 (실제 앱 화면 아님)"></canvas></div>
+            <div class="ac-styledemo__controls" role="group" aria-label="보호 방식 선택">
+              <button type="button" data-ac-style="solid">단색</button>
+              <button type="button" data-ac-style="grayscale">흑백</button>
+              <button type="button" data-ac-style="blur">블러</button>
+              <button type="button" data-ac-style="mosaic" aria-pressed="true">모자이크</button>
+            </div>
+            <p class="ac-styledemo__caption" data-ac-style-caption></p>
+            <p class="hr-tip">🧪 예시 이미지예요 · <b>실제 앱 화면은 아니에요</b></p>
+          </div>
+          <div class="hr-card">
+            <ul class="hr-feat">
+              <li><span class="hr-ic">▩</span><div><b>모자이크</b><span>블록 크기·불투명도로 강도를 정해요.</span></div></li>
+              <li><span class="hr-ic">◐</span><div><b>블러</b><span>경계를 부드럽게 가려요.</span></div></li>
+              <li><span class="hr-ic">▣</span><div><b>흑백</b><span>형태는 남기고 색만 빼요.</span></div></li>
+              <li><span class="hr-ic">■</span><div><b>단색</b><span>완전히 덮어서 가장 강하게.</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SENSITIVITY -->
+    <section class="hr-sec" id="sensitivity">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">감지 민감도 · 보호 방식과는 달라요</p>
+          <h2 class="hr-sec__title">민감도는 “후보를 얼마나 넓게 잡을지”예요</h2>
+          <p class="hr-sec__sub">값이 낮을수록(예: <b>0.01</b>) 더 민감하게, 더 넓게 후보를 잡아요. 값이 높을수록 확실한 후보만 남아요.</p>
+        </div>
+        <div class="hr-2 ac-sens" data-ac-sensitivity>
+          <div class="hr-card">
+            <div class="ac-sens__stage"><canvas class="ac-sens__canvas" data-ac-sens-canvas width="560" height="360" aria-label="감지 후보 영역 다이어그램 (설명용)"></canvas></div>
+            <p class="hr-tip" style="margin-top:12px">📐 감지 단계의 후보 영역 설명 그림이에요</p>
+          </div>
+          <div class="hr-card">
+            <label class="hr-sec__kicker" for="hr-sens">임계값 조절</label>
+            <input id="hr-sens" type="range" min="1" max="50" step="1" value="20" data-ac-sens-range aria-label="감지 민감도 임계값" style="width:100%;margin-top:10px">
+            <div class="ac-sens__readout"><span>임계값 <b data-ac-sens-value>0.20</b></span><span>남은 후보 <b data-ac-sens-count>0</b>개</span></div>
+            <p class="ac-sens__note" data-ac-sens-note></p>
+            <div class="ac-sens__chips" role="group" aria-label="임계값 예시">
+              <button type="button" data-ac-sens="0.01">0.01</button>
+              <button type="button" data-ac-sens="0.05">0.05</button>
+              <button type="button" data-ac-sens="0.20">0.20</button>
+              <button type="button" data-ac-sens="0.35">0.35</button>
+              <button type="button" data-ac-sens="0.50">0.50</button>
+            </div>
+            <p class="hr-sec__sub" style="margin-top:14px">처음에는 <b>0.20에서 0.50</b> 사이로 시작해 보세요. 좋은 값은 모델과 이미지에 따라 달라지니, 결과를 보며 천천히 맞추면 돼요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="hr-sec" id="compare">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">전후 비교</p>
+          <h2 class="hr-sec__title">손잡이를 끌어 비교해 보세요</h2>
+          <p class="hr-sec__sub">왼쪽은 원본, 오른쪽은 보호 적용 결과예요. 가운데 선을 끌거나 ←/→ 키로 비교할 수 있어요.</p>
+        </div>
+        <div class="hr-card">
+          <div class="ac-compare" data-ac-compare="demo">
+            <div class="ac-compare__layer ac-compare__before" data-ac-compare-before>
+              <canvas data-ac-compare-canvas="before" width="720" height="460"></canvas>
+              <span class="ac-compare__tag ac-compare__tag--a">원본</span>
+            </div>
+            <div class="ac-compare__layer ac-compare__after" data-ac-compare-after>
+              <canvas data-ac-compare-canvas="after" width="720" height="460"></canvas>
+              <span class="ac-compare__tag ac-compare__tag--b">보호 적용</span>
+            </div>
+            <div class="ac-compare__handle" data-ac-compare-handle></div>
+          </div>
+          <p class="hr-tip" style="margin-top:12px">🧪 예시 이미지예요 · <b>실제 앱 화면은 아니에요</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="hr-sec" id="tools">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">도구 · 단축키</p>
+          <h2 class="hr-sec__title">손이 필요한 곳에만 쓰는 도구</h2>
+          <p class="hr-sec__sub">아래 화면과 단축키는 실제 앱 기준이에요.</p>
+        </div>
+        <div class="hr-2">
+          <div class="hr-card">
+            <ul class="hr-feat">
+              <li><span class="hr-ic">B</span><div><b>브러시 검열</b><span>원하는 영역을 직접 칠해 가려요.</span></div></li>
+              <li><span class="hr-ic">X</span><div><b>복구/지우개</b><span>과하게 가린 곳을 되돌려요.</span></div></li>
+              <li><span class="hr-ic">D</span><div><b>영역 감지</b><span>오른쪽 버튼으로 드래그한 영역을 한 번에.</span></div></li>
+              <li><span class="hr-ic">E</span><div><b>스탬프 도구</b><span>반복 보정을 빠르게 찍어 적용.</span></div></li>
+            </ul>
+          </div>
+          <div class="hr-figs">
+            <figure><span class="ac-shot"><img src="assets/detail-shortcuts.png" alt="앱 화면:단축키 도움말 패널"></span><figcaption>단축키 도움말</figcaption></figure>
+            <figure><span class="ac-shot"><img src="assets/detail-region-detect.png" alt="앱 화면:영역 감지로 보호한 모습"></span><figcaption>영역 감지</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="hr-sec" id="settings">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">설정 · 저장</p>
+          <h2 class="hr-sec__title">저장은 흐름을 따라 자동으로</h2>
+          <p class="hr-sec__sub">처리와 보정 결과는 작업하는 동안 자동으로 적용·저장돼요. 출력 폴더에 접미사를 붙여 저장되고, 따로 수동 저장을 누를 필요는 없어요.</p>
+        </div>
+        <div class="hr-figs">
+          <figure><span class="ac-shot"><img src="assets/detail-settings-panel.png" alt="앱 화면:검열 설정 패널"></span><figcaption>검열 설정 패널</figcaption></figure>
+          <figure><span class="ac-shot"><img src="assets/detail-settings-dialog.png" alt="앱 화면:설정 대화상자 저장 탭"></span><figcaption>저장 설정 대화상자</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & SUPPORT -->
+    <section class="hr-sec" id="support">
+      <div class="ac-shell hr-support">
+        <div class="hr-card">
+          <h3 class="hr-sec__title" style="font-size:20px">궁금한 건 댓글로 물어봐 주세요</h3>
+          <p class="hr-sec__sub">질문, 버그 제보, 개선 제안은 Tistory 설명 글의 댓글로 남겨 주세요. 공개 댓글에는 개인 경로, 계정 정보, 민감한 이미지를 올리지 말아 주세요. 특정 이미지가 제대로 감지되지 않는 경우에는 화면 캡처와 실제 실패 이미지를 메일로 보내 주세요.</p>
+          <p class="hr-actions" style="margin-top:14px"><a class="hr-btn hr-btn--ghost" data-ac-href="links.feedback" href="support.html">문의 방법 안내</a></p>
+        </div>
+        <div class="hr-card">
+          <h3 class="hr-sec__title" style="font-size:20px">응원은 GitHub Star가 제일 가벼워요</h3>
+          <p class="hr-sec__sub" style="margin-bottom:14px">유지보수와 문서, 호환성 작업을 꾸준히 이어 가고 있어요. 부담 없는 응원은 GitHub Star예요.</p>
+          <div class="hr-actions" style="margin-top:0">
+            <a class="hr-btn hr-btn--primary" data-ac-href="support.githubStar" href="#" rel="noopener">GitHub ☆ Star</a>
+            <a class="hr-btn hr-btn--ghost" data-ac-optional data-ac-href="support.sponsors" href="#" rel="noopener">GitHub Sponsors</a>
+            <a class="hr-btn hr-btn--ghost" data-ac-optional data-ac-href="support.buyMeACoffee" href="#" rel="noopener">Buy Me a Coffee</a>
+            <a class="hr-btn hr-btn--ghost" data-ac-optional data-ac-href="support.kofi" href="#" rel="noopener">Ko-fi</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hr-foot">
+    <div class="ac-shell">
+      <p><b>AutoCensoR</b> · Windows 이미지 폴더 보호 도구 · 실사용 기반으로 꾸준히 업데이트합니다 · © <span data-ac-year>2026</span></p>
+      <p style="margin-top:4px">
+        <a data-ac-href="links.manual" href="#">매뉴얼</a> ·
+        <a data-ac-href="links.quickstart" href="#">빠른 시작</a> ·
+        <a data-ac-href="links.github" href="#" rel="noopener">GitHub</a> ·
+        <a href="en/index.html">English</a>
+      </p>
+    </div>
+  </footer>
+
+  <script type="application/json" id="ac-site-data">{"brand":{"name":"AutoCensoR","platform":"Windows","tagline":"이미지 폴더의 보호할 영역을 자동으로 찾고, 필요한 부분만 사람이 빠르게 다듬습니다.","summary":"폴더 선택 → 모델 로드 → 일괄 처리 → 필요한 부분만 수동 보정."},"links":{"github":"https://github.com/JHKS24/AutoCensoR","download":"downloads.html","model":"https://github.com/JHKS24/AutoCensoR#model-placement","quickstart":"quickstart.html","manual":"tistory/AutoCensoR_Tistory_Manual_Full.html","guide":"guide.html","comparison":"comparison.html","feedback":"support.html","patchNotes":"patch-notes.html"},"downloads":{"source":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-source.zip","full":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Full.zip","cpuOnly":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-CPU_Only.zip","legacyPython":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Legacy-Python.zip"},"support":{"githubStar":"https://github.com/JHKS24/AutoCensoR","sponsors":"","buyMeACoffee":"","kofi":""},"contact":{"tistoryComments":true,"tistoryPostUrl":"tistory/AutoCensoR_Tistory_Manual_Full.html","email":"zeus30313@gmail.com","commercialEmail":"zeus30313@gmail.com","commercialEmailLink":"mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry"},"meta":{"locale":"ko-KR","updated":"2026-06","hosting":"static site with Tistory comments"}}</script>
+  <script src="script.js"></script>
+</body>
+</html>

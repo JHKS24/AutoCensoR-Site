@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AutoCensoR · Folder-based image protection for Windows</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AutoCensoR detects regions to protect in image folders and lets you quickly correct the results by hand.">
+  <link rel="icon" type="image/png" href="../assets/app-icon.png">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="hr-head">
+    <div class="ac-shell hr-head__in">
+      <a class="hr-brand" href="../index.html"><span class="hr-brand__a" aria-hidden="true"><img src="../assets/app-icon.png" alt="" width="30" height="30"></span>AutoCensoR</a>
+      <button data-ac-nav-toggle aria-expanded="false" aria-controls="hr-menu" aria-label="Menu">Menu</button>
+      <nav id="hr-menu" class="hr-nav" data-ac-nav aria-label="Primary navigation">
+        <a href="#flow">Workflow</a>
+        <a href="#styles">Styles</a>
+        <a href="#sensitivity">Sensitivity</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="../support.html">Contact</a>
+        <a class="hr-nav__cta" href="downloads.html">Download</a>
+        <span class="hr-lang" aria-label="Language"><a href="../index.html">KR</a><a aria-current="page" href="index.html">EN</a></span>
+      </nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hr-hero">
+      <div class="ac-shell hr-hero__grid">
+        <div>
+          <span class="hr-greet">A practical Windows tool for image folders</span>
+          <h1 class="hr-h1">Let the folder run.<br><em class="hr-mark">Fix only what matters.</em></h1>
+          <p class="hr-lede">AutoCensoR scans an image folder, detects regions that need protection, and gives you fast manual correction tools for the final pass.</p>
+          <div class="hr-cards">
+            <div class="hr-mini"><b><span class="hr-mini__n">1</span> Pick folder</b><span>Load an image folder.</span></div>
+            <div class="hr-mini"><b><span class="hr-mini__n">2</span> Load model</b><span>Get detection ready.</span></div>
+            <div class="hr-mini"><b><span class="hr-mini__n">3</span> Batch run</b><span>Process the folder.</span></div>
+            <div class="hr-mini"><b><span class="hr-mini__n">4</span> Correct</b><span>Brush or restore as needed.</span></div>
+          </div>
+          <div class="hr-actions">
+            <a class="hr-btn hr-btn--primary" href="downloads.html">Download builds</a>
+            <a class="hr-btn hr-btn--ghost" href="https://github.com/JHKS24/AutoCensoR" rel="noopener">GitHub Star</a>
+          </div>
+          <p class="hr-commercial">For commercial use, paid redistribution, or product bundling, please <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">contact by email</a>.</p>
+        </div>
+        <figure class="hr-polaroid">
+          <span class="ac-shot"><img src="../assets/real-full-en.png" alt="AutoCensoR running in English: an empty workspace before a folder is loaded"></span>
+          <figcaption>AutoCensoR running in English: an empty workspace before a folder is loaded. Public screenshots never include private paths or sensitive images.</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="hr-sec" id="flow">
+      <div class="ac-shell">
+        <div class="hr-sec__head" style="max-width:none;text-align:center;margin-inline:auto">
+          <p class="hr-sec__kicker">Workflow</p>
+          <h2 class="hr-sec__title">From empty workspace to corrected output</h2>
+          <p class="hr-sec__sub" style="margin-inline:auto">Select a step and the screen, caption, and key points change together.</p>
+        </div>
+        <div class="ac-flow" data-ac-workflow>
+          <ol class="ac-flow__steps" role="tablist" aria-label="Workflow steps">
+            <li><button role="tab" data-ac-step="0" data-src="../assets/state-empty-en.png" data-alt="AutoCensoR empty workspace (English UI)" data-caption="No images have been loaded yet. Before a folder is opened the model shows as not loaded." data-callouts="The image list on the left is empty|Use Input Folder, then Load Model|Censor settings on the right can be pre-adjusted"><span class="ac-flow__num">1</span>Empty workspace</button></li>
+            <li><button role="tab" data-ac-step="1" data-src="../assets/state-scan-en.png" data-alt="AutoCensoR image list after scan (English UI)" data-caption="Images are listed and waiting for processing. The model is not loaded yet." data-callouts="Files fill the list on the left|Each item is marked PENDING|Filter by status: All, Censored, Clean, Pending, Failed"><span class="ac-flow__num">2</span>Folder scanned</button></li>
+            <li><button role="tab" data-ac-step="2" data-src="../assets/state-ready-en.png" data-alt="AutoCensoR model loaded (English UI)" data-caption="Detection is ready and batch processing can start." data-callouts="The status switches to loaded|Detection becomes ready|Press Start Batch (F5)"><span class="ac-flow__num">3</span>Model ready</button></li>
+            <li><button role="tab" data-ac-step="3" data-src="../assets/state-processed-en.png" data-alt="AutoCensoR processed result (English UI)" data-caption="Detected regions are protected. The on-screen example is a test image." data-callouts="The protection style is applied to detected regions|The bottom bar shows processed count and time|List items switch to Censored or Clean"><span class="ac-flow__num">4</span>Batch processed</button></li>
+            <li><button role="tab" data-ac-step="4" data-src="../assets/manual-correction-en.png" data-alt="AutoCensoR manual correction (English UI)" data-caption="Adjust only the places that need a human pass. Results are saved automatically." data-callouts="Brush cursor for hands-on correction|Right-drag region detect covers an area at once|Results are saved automatically"><span class="ac-flow__num">5</span>Manual correction</button></li>
+          </ol>
+          <div class="ac-flow__main">
+            <figure class="ac-flow__figure">
+              <span class="ac-shot ac-shot--flow"><img data-ac-workflow-img alt=""></span>
+              <figcaption data-ac-workflow-caption></figcaption>
+            </figure>
+            <aside class="ac-flow__detail" aria-live="polite">
+              <p class="ac-flow__detail-kicker">What to look at</p>
+              <ul class="ac-flow__callouts" data-ac-workflow-callouts></ul>
+            </aside>
+          </div>
+          <p class="hr-tip" style="margin-top:14px">Note: the example image inside each screenshot is a test image, not a real photo.</p>
+        </div>
+      </div>
+    </section>
+    <section class="hr-sec" id="styles">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">Protection styles</p>
+          <h2 class="hr-sec__title">Same region, different output</h2>
+          <p class="hr-sec__sub">Solid fill, grayscale, blur, and mosaic change the visual treatment, not the detected region itself.</p>
+        </div>
+        <div class="hr-card ac-styledemo" data-ac-style-demo>
+          <div class="ac-styledemo__stage"><canvas class="ac-styledemo__canvas" data-ac-style-canvas width="720" height="460" aria-label="Protection style demo"></canvas></div>
+          <div class="ac-styledemo__controls" role="group" aria-label="Protection style">
+            <button type="button" data-ac-style="solid">Solid</button>
+            <button type="button" data-ac-style="grayscale">Grayscale</button>
+            <button type="button" data-ac-style="blur">Blur</button>
+            <button type="button" data-ac-style="mosaic" aria-pressed="true">Mosaic</button>
+          </div>
+          <p class="ac-styledemo__caption" data-ac-style-caption></p>
+        </div>
+      </div>
+    </section>
+    <section class="hr-sec" id="sensitivity">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">Detection sensitivity</p>
+          <h2 class="hr-sec__title">Lower thresholds catch more candidates</h2>
+          <p class="hr-sec__sub">A lower value such as 0.01 is more sensitive and keeps wider candidate regions. A higher value keeps only more confident candidates.</p>
+        </div>
+        <div class="hr-2 ac-sens" data-ac-sensitivity>
+          <div class="hr-card"><div class="ac-sens__stage"><canvas class="ac-sens__canvas" data-ac-sens-canvas width="560" height="360" aria-label="Detection candidate diagram"></canvas></div></div>
+          <div class="hr-card">
+            <label class="hr-sec__kicker" for="hr-sens">Threshold</label>
+            <input id="hr-sens" type="range" min="1" max="50" step="1" value="20" data-ac-sens-range aria-label="Detection threshold">
+            <div class="ac-sens__readout"><span>Threshold <b data-ac-sens-value>0.20</b></span><span>Candidates <b data-ac-sens-count>0</b></span></div>
+            <p class="ac-sens__note" data-ac-sens-note></p>
+            <div class="ac-sens__chips" role="group" aria-label="Threshold examples">
+              <button type="button" data-ac-sens="0.01">0.01</button>
+              <button type="button" data-ac-sens="0.05">0.05</button>
+              <button type="button" data-ac-sens="0.20">0.20</button>
+              <button type="button" data-ac-sens="0.35">0.35</button>
+              <button type="button" data-ac-sens="0.50">0.50</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="hr-sec" id="compare">
+      <div class="ac-shell">
+        <div class="hr-sec__head">
+          <p class="hr-sec__kicker">Before and after</p>
+          <h2 class="hr-sec__title">Compare original and protected output</h2>
+          <p class="hr-sec__sub">Left is original, right is protected. Drag the divider or use arrow keys.</p>
+        </div>
+        <div class="hr-card">
+          <div class="ac-compare" data-ac-compare="demo">
+            <div class="ac-compare__layer ac-compare__before" data-ac-compare-before><canvas data-ac-compare-canvas="before" width="720" height="460"></canvas><span class="ac-compare__tag ac-compare__tag--a">Original</span></div>
+            <div class="ac-compare__layer ac-compare__after" data-ac-compare-after><canvas data-ac-compare-canvas="after" width="720" height="460"></canvas><span class="ac-compare__tag ac-compare__tag--b">Protected</span></div>
+            <div class="ac-compare__handle" data-ac-compare-handle></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="hr-sec" id="support">
+      <div class="ac-shell hr-support">
+        <div class="hr-card"><h3 class="hr-sec__title" style="font-size:20px">Questions and suggestions</h3><p class="hr-sec__sub">For questions, bug reports, and improvement requests, use the comments under the Tistory guide post. Do not post private paths, account details, or sensitive images in public comments.</p><p class="hr-actions"><a class="hr-btn hr-btn--ghost" href="../support.html">Support page</a></p></div>
+        <div class="hr-card"><h3 class="hr-sec__title" style="font-size:20px">Commercial use</h3><p class="hr-sec__sub">For commercial usage, redistribution, or bundling, contact by email.</p><p class="hr-actions"><a class="hr-btn hr-btn--primary" href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">Email</a></p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="hr-foot"><div class="ac-shell">
+    <p><b>AutoCensoR</b> · Image folder protection for Windows · maintained from real daily use · © 2026</p>
+    <p style="margin-top:4px"><a href="../index.html">한국어</a> · <a href="downloads.html">Downloads</a> · <a href="https://github.com/JHKS24/AutoCensoR" rel="noopener">GitHub</a></p>
+  </div></footer>
+  <script type="application/json" id="ac-site-data">{"brand":{"name":"AutoCensoR","platform":"Windows"},"links":{"github":"https://github.com/JHKS24/AutoCensoR","download":"downloads.html","feedback":"../support.html"},"downloads":{"source":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-source.zip","full":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Full.zip","cpuOnly":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-CPU_Only.zip","legacyPython":"https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Legacy-Python.zip"},"contact":{"commercialEmailLink":"mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry"},"meta":{"locale":"en-US"}}</script>
+  <script src="../script.js"></script>
+</body>
+</html>

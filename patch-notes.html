@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>AutoCensoR 패치노트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AutoCensoR 공개 배포 패치노트.">
+  <link rel="icon" type="image/png" href="assets/app-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hr-head">
+    <div class="ac-shell hr-head__in">
+      <a class="hr-brand" href="index.html"><span class="hr-brand__a" aria-hidden="true"><img src="assets/app-icon.png" alt="" width="30" height="30"></span>AutoCensoR</a>
+      <button data-ac-nav-toggle aria-expanded="false" aria-controls="hr-menu" aria-label="메뉴">메뉴</button>
+      <nav id="hr-menu" class="hr-nav" data-ac-nav aria-label="주요 메뉴">
+        <a href="downloads.html">배포 파일</a>
+        <a href="tistory/AutoCensoR_Tistory_Manual_Full.html">설명서</a>
+        <a href="support.html">문의</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="ac-page-hero"><div class="ac-shell">
+      <p class="hr-sec__kicker">패치노트</p>
+      <h1 class="hr-h1">무엇이 바뀌었는지 짧게 남깁니다.</h1>
+      <p class="hr-lede">릴리스 자산과 소스 공개가 준비될 때마다 이 페이지에 사용자 기준의 변경점을 정리합니다.</p>
+    </div></section>
+    <section class="hr-sec"><div class="ac-shell">
+      <ul class="ac-list">
+        <li><b>공개 배포 준비</b><span>Windows 실행 파일을 CPU Only와 Full로 나누고, 모델 가중치는 별도 준비 방식으로 정리합니다.</span></li>
+        <li><b>자동 저장 흐름 정리</b><span>처리와 수동 보정 결과는 작업 흐름에 따라 저장되도록 설명을 명확히 했습니다.</span></li>
+        <li><b>문서와 문의 흐름 분리</b><span>홈페이지는 정적 파일로 무료 운영하고, 질문과 제안은 Tistory 댓글로 받는 구조로 정리합니다.</span></li>
+      </ul>
+      <p class="ac-callout" style="margin-top:18px">상세한 변경 내역은 GitHub Releases와 커밋 로그에도 남깁니다.</p>
+    </div></section>
+  </main>
+  <footer class="hr-foot"><div class="ac-shell"><a href="index.html">홈</a> · <a href="downloads.html">다운로드</a></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
