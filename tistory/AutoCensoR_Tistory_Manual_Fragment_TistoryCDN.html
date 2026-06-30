@@ -1,0 +1,761 @@
+<div class="acr-post" id="acr-top">
+  <style>
+    .acr-post{--ink:#211b1d;--muted:#6b6168;--line:#e7dde1;--paper:#ffffff;--garnet:#d6455d;--garnet-soft:#fbeef1;--slate:#33424c;--safe:#1f6f5c;--safe-soft:#eef6f2;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",sans-serif;color:var(--ink);line-height:1.78;max-width:920px;margin:0 auto;padding:4px 2px;font-size:17px;-webkit-font-smoothing:antialiased}
+    .acr-post *{box-sizing:border-box}
+    .acr-post h1,.acr-post h2,.acr-post h3{word-break:keep-all;line-height:1.22;letter-spacing:-0.01em}
+    .acr-post p{word-break:keep-all;overflow-wrap:anywhere;margin:0 0 14px}
+    .acr-post a{color:var(--garnet);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(214,69,93,.32);overflow-wrap:anywhere}
+    .acr-post a:hover{border-bottom-color:var(--garnet)}
+    .acr-post img{max-width:100%;height:auto;display:block;border-radius:10px}
+    .acr-post code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f3eef0;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;color:#a32d44}
+    .acr-post hr.acr-rule{border:0;border-top:1px solid var(--line);margin:34px 0}
+
+    /* language switch */
+    .acr-langbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+    .acr-langbar .acr-langlabel{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+    .acr-tabs{display:inline-flex;gap:4px;background:#f4eef0;border:1px solid var(--line);border-radius:999px;padding:4px}
+    .acr-tabs button{border:0;background:transparent;border-radius:999px;padding:7px 18px;font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;font-family:inherit}
+    .acr-tabs button[aria-pressed=true]{background:var(--garnet);color:#fff}
+    .acr-lang{display:none}.acr-lang.is-on{display:block}
+
+    /* hero */
+    .acr-hero{padding:18px 0 6px;border-bottom:1px solid var(--line);margin-bottom:8px}
+    .acr-kicker{display:inline-block;font-size:13px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--garnet)}
+    .acr-h1{font-size:clamp(28px,5vw,46px);margin:12px 0 14px;font-weight:900}
+    .acr-h1 em{font-style:normal;color:var(--garnet)}
+    .acr-lede{font-size:clamp(16px,2.3vw,19px);color:var(--muted);max-width:680px}
+    .acr-meta{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px;padding:0;list-style:none}
+    .acr-meta li{font-size:13px;font-weight:700;color:var(--slate);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fbf8f9}
+
+    /* figures */
+    .acr-fig{margin:18px 0;position:relative}
+    .acr-fig--crop{max-width:340px;margin-inline:auto}
+    .acr-fig img{border:1px solid var(--line);background:#fff;box-shadow:0 10px 26px rgba(40,18,28,.06);cursor:zoom-in}
+    .acr-fig figcaption{font-size:13.5px;color:var(--muted);margin-top:9px;padding-left:2px}
+    .acr-figrow{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:18px 0}
+    .acr-figrow figure{margin:0}
+    .acr-fig::after{content:"\2922";position:absolute;top:12px;right:12px;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(20,18,22,.7);color:#fff;font-size:15px;line-height:1;opacity:.62;transition:opacity .15s ease;pointer-events:none}
+    .acr-fig:hover::after{opacity:1}
+
+    /* click-to-enlarge lightbox */
+    .acr-lightbox{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:rgba(8,10,14,.9);padding:24px;cursor:zoom-out}
+    .acr-lightbox[hidden]{display:none!important}
+    .acr-lightbox__img{max-width:min(96vw,1400px);max-height:88vh;width:auto;height:auto;border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.55);background:#0e131a;cursor:default}
+    .acr-lightbox__close{position:absolute;top:16px;right:18px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+    .acr-lightbox__close:hover{background:rgba(255,255,255,.28)}
+
+    /* table of contents */
+    .acr-toc{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:22px 0 6px;background:#fbf8f9}
+    .acr-toc strong{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--garnet);margin-bottom:12px}
+    .acr-toc ol{margin:0;padding:0;list-style:none;columns:2;column-gap:26px}
+    .acr-toc li{margin:0 0 9px;break-inside:avoid;font-size:14.5px}
+    .acr-toc a{display:block;color:var(--ink);font-weight:600;border-bottom:0;padding:2px 0}
+    .acr-toc a:hover{color:var(--garnet)}
+    .acr-toc a .n{color:var(--garnet);font-weight:800;margin-right:8px;font-variant-numeric:tabular-nums}
+
+    /* sections */
+    .acr-sec{padding-top:14px;margin-top:26px;scroll-margin-top:16px}
+    .acr-sec__h{display:flex;align-items:baseline;gap:12px;margin:0 0 10px}
+    .acr-sec__n{flex:0 0 auto;font-size:14px;font-weight:900;color:#fff;background:var(--garnet);border-radius:8px;min-width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;line-height:1;transform:translateY(2px)}
+    .acr-sec h2{font-size:clamp(21px,3.4vw,27px);margin:0;font-weight:800}
+    .acr-sec h3{font-size:17px;margin:20px 0 6px;font-weight:800}
+
+    /* steps */
+    .acr-steps{counter-reset:s;list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
+    .acr-steps li{counter-increment:s;position:relative;padding:13px 16px 13px 52px;border:1px solid var(--line);border-radius:12px;background:#fff}
+    .acr-steps li:before{content:counter(s);position:absolute;left:14px;top:13px;box-sizing:border-box;width:26px;height:26px;border-radius:50%;background:var(--garnet-soft);color:var(--garnet);font-weight:900;font-size:14px;line-height:1;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center}
+    .acr-steps b{display:block;margin-bottom:2px}
+    .acr-steps span{color:var(--muted);font-size:15px}
+
+    /* tables: wrap instead of horizontal scroll so nothing breaks badly on narrow Tistory columns */
+    .acr-tablewrap{margin:16px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+    .acr-table{width:100%;border-collapse:collapse;font-size:15px}
+    .acr-table th,.acr-table td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;word-break:keep-all;overflow-wrap:anywhere}
+    .acr-table thead th{background:#f6f1f3;font-weight:800;color:var(--slate);font-size:13.5px;letter-spacing:.01em}
+    .acr-table tr:last-child td{border-bottom:0}
+    .acr-table td b{color:var(--ink)}
+    .acr-kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#211b1d;color:#fff;border-radius:6px;padding:2px 9px;font-size:13px;font-weight:700;display:inline-block}
+
+    /* highlight points */
+    .acr-points{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:16px 0;padding:0;list-style:none}
+    .acr-points li{border:1px solid var(--line);border-left:3px solid var(--garnet);border-radius:0 10px 10px 0;padding:13px 15px;background:#fff}
+    .acr-points b{display:block;font-size:15.5px;margin-bottom:3px}
+    .acr-points span{color:var(--muted);font-size:14.5px}
+
+    /* note / callout */
+    .acr-note{border-left:4px solid var(--garnet);background:var(--garnet-soft);border-radius:0 12px 12px 0;padding:15px 18px;margin:18px 0;font-size:15.5px}
+    .acr-note b{color:#a82a44}
+    .acr-note--safe{border-left-color:var(--safe);background:var(--safe-soft)}
+    .acr-note--safe b{color:var(--safe)}
+
+    /* details */
+    .acr-faq{display:grid;gap:10px;margin:16px 0}
+    .acr-faq details{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+    .acr-faq summary{cursor:pointer;padding:14px 16px;font-weight:800;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .acr-faq summary::-webkit-details-marker{display:none}
+    .acr-faq summary:after{content:"+";color:var(--garnet);font-weight:900;font-size:20px;line-height:1}
+    .acr-faq details[open] summary:after{content:"-"}
+    .acr-faq .acr-faq__body{padding:0 16px 15px;color:var(--muted);font-size:15px}
+    .acr-faq .acr-faq__body p{margin:0 0 8px}
+
+    /* CTA */
+    .acr-cta{border:1px solid var(--line);border-radius:16px;padding:22px;margin:18px 0;text-align:center;background:#fbf8f9}
+    .acr-cta h3{margin:0 0 8px;font-size:20px}
+    .acr-cta p{color:var(--muted);margin:0 auto 14px;max-width:520px}
+    .acr-post a.acr-btn{display:inline-block;background:var(--garnet);color:#fff;border:1px solid var(--garnet);border-radius:999px;padding:11px 24px;font-weight:800;border-bottom:0}
+    .acr-post a.acr-btn:hover{background:#b8324a;border-color:#b8324a;color:#fff}
+    .acr-post a.acr-btn--ghost{background:transparent;color:var(--garnet)}
+    .acr-post a.acr-btn--ghost:hover{background:var(--garnet-soft);color:var(--garnet)}
+
+    /* footer */
+    .acr-foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+    .acr-foot b{color:var(--ink)}
+
+    @media (max-width:560px){
+      .acr-post{font-size:16px}
+      .acr-toc ol{columns:1}
+      .acr-sec__n{min-width:26px;height:26px;font-size:13px}
+      .acr-table{font-size:13.5px}
+      .acr-table th,.acr-table td{padding:9px 10px}
+    }
+  </style>
+
+  <div class="acr-langbar">
+    <span class="acr-langlabel">Language</span>
+    <div class="acr-tabs" role="tablist" aria-label="언어 선택 / Language switch">
+      <button type="button" data-acr-lang="ko" aria-pressed="true">한국어</button>
+      <button type="button" data-acr-lang="en" aria-pressed="false">English</button>
+    </div>
+  </div>
+
+  <!-- ====================== KOREAN ====================== -->
+  <section class="acr-lang is-on" data-acr-panel="ko">
+    <header class="acr-hero">
+      <span class="acr-kicker">AutoCensoR 사용 설명서</span>
+      <h1 class="acr-h1">폴더는 먼저 처리하고,<br><em>필요한 곳만</em> 직접 다듬습니다.</h1>
+      <p class="acr-lede">AutoCensoR는 Windows에서 이미지 폴더의 보호할 영역을 자동으로 찾아 한 번에 처리하고, 남는 부분만 브러시 검열, 복구/지우개, 영역 감지 도구로 사람이 빠르게 마무리하는 데스크톱 앱입니다.</p>
+      <ul class="acr-meta">
+        <li>플랫폼 · Windows</li>
+        <li>자동 처리 + 수동 보정</li>
+        <li>결과 자동 저장</li>
+        <li>설치형 데스크톱 앱</li>
+      </ul>
+    </header>
+
+    <figure class="acr-fig">
+      <img src="https://blog.kakaocdn.net/dna/HlolF/dJMcaiX6loB/AAAAAAAAAAAAAAAAAAAAAMgXTObuNcE_zIcuDY7gfDmmstiuOG7_KBcsyjLhiUyw/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=0iMFAYM08i8Pk6H4R9eHUFR4TFA%3D" alt="AutoCensoR 작업 화면: 모델이 준비되어 일괄 처리를 시작할 수 있는 상태">
+      <figcaption>AutoCensoR 작업 화면: 모델이 준비된 상태입니다. 공개 글에는 개인 경로나 민감 이미지를 넣지 않습니다.</figcaption>
+    </figure>
+
+    <nav class="acr-toc" aria-label="목차">
+      <strong>목차</strong>
+      <ol>
+        <li><a href="#ko-what" data-acr-jump="ko-what"><span class="n">01</span>AutoCensoR가 하는 일</a></li>
+        <li><a href="#ko-quick" data-acr-jump="ko-quick"><span class="n">02</span>빠른 시작</a></li>
+        <li><a href="#ko-builds" data-acr-jump="ko-builds"><span class="n">03</span>설치와 빌드: CPU Only vs Full</a></li>
+        <li><a href="#ko-specs" data-acr-jump="ko-specs"><span class="n">04</span>권장 사양</a></li>
+        <li><a href="#ko-model" data-acr-jump="ko-model"><span class="n">05</span>모델 로드와 <code>.pt</code> 모델</a></li>
+        <li><a href="#ko-folder" data-acr-jump="ko-folder"><span class="n">06</span>폴더 작업 흐름</a></li>
+        <li><a href="#ko-batch" data-acr-jump="ko-batch"><span class="n">07</span>일괄 처리</a></li>
+        <li><a href="#ko-styles" data-acr-jump="ko-styles"><span class="n">08</span>보호 방식</a></li>
+        <li><a href="#ko-sens" data-acr-jump="ko-sens"><span class="n">09</span>감지 민감도</a></li>
+        <li><a href="#ko-tools" data-acr-jump="ko-tools"><span class="n">10</span>수동 보정 도구</a></li>
+        <li><a href="#ko-save" data-acr-jump="ko-save"><span class="n">11</span>자동 저장과 출력</a></li>
+        <li><a href="#ko-keys" data-acr-jump="ko-keys"><span class="n">12</span>단축키 한눈에</a></li>
+        <li><a href="#ko-trouble" data-acr-jump="ko-trouble"><span class="n">13</span>문제 해결</a></li>
+        <li><a href="#ko-privacy" data-acr-jump="ko-privacy"><span class="n">14</span>댓글을 남기기 전에</a></li>
+        <li><a href="#ko-feedback" data-acr-jump="ko-feedback"><span class="n">15</span>댓글로 문의하기</a></li>
+        <li><a href="#ko-commercial" data-acr-jump="ko-commercial"><span class="n">16</span>상업적 이용 문의</a></li>
+      </ol>
+    </nav>
+
+    <section class="acr-sec" id="ko-what">
+      <div class="acr-sec__h"><span class="acr-sec__n">01</span><h2>AutoCensoR가 하는 일</h2></div>
+      <p>AutoCensoR는 이미지 한 장이 아니라 <b>폴더 단위</b>로 일합니다. 폴더를 열면 안의 이미지를 목록으로 불러오고, 모델을 로드한 뒤 일괄 처리를 실행하면 보호할 후보 영역을 찾아 한 번에 가립니다. 자동 결과가 완벽하지 않은 부분만 사람이 직접 손봅니다.</p>
+      <ul class="acr-points">
+        <li><b>폴더 통째로 처리</b><span>한 폴더의 이미지를 한 번에 검토·처리합니다.</span></li>
+        <li><b>필요한 곳만 보정</b><span>자동이 놓친 부분만 브러시·영역 도구로 마무리합니다.</span></li>
+        <li><b>결과 자동 저장</b><span>출력 폴더에 접미사를 붙여 자동으로 저장됩니다.</span></li>
+      </ul>
+      <div class="acr-note"><b>솔직한 안내:</b> 완벽한 자동 검열을 보장하지는 않습니다. 자동이 후보를 빠르게 잡아 주고, 마지막 판단과 마무리는 사람이 합니다. 원본은 함부로 덮어쓰지 않고 출력 폴더에 따로 저장합니다.</div>
+    </section>
+
+    <section class="acr-sec" id="ko-quick">
+      <div class="acr-sec__h"><span class="acr-sec__n">02</span><h2>빠른 시작</h2></div>
+      <p>처음 쓰는 분은 아래 다섯 단계만 따라 하면 됩니다. 각 단계는 뒤에서 더 자세히 다룹니다.</p>
+      <ol class="acr-steps">
+        <li><b>이미지 폴더 선택</b><span>입력 폴더 버튼으로 이미지 폴더를 선택하면 목록이 채워지고 ‘대기 중’으로 표시됩니다.</span></li>
+        <li><b>모델 로드</b><span>모델 로드 버튼으로 호환되는 <code>.pt</code> 모델을 불러옵니다. 로드 전에는 자동 감지가 동작하지 않습니다.</span></li>
+        <li><b>일괄 처리</b><span>일괄 시작(F5) 버튼으로 폴더 전체를 처리합니다.</span></li>
+        <li><b>수동 보정</b><span>브러시 검열, 복구/지우개, 영역 감지, 스탬프 도구, 퀵마스크로 필요한 곳만 다듬습니다.</span></li>
+        <li><b>저장 확인</b><span>결과는 작업 중 자동으로 출력 폴더에 저장됩니다. 따로 저장 버튼을 누를 필요가 없습니다.</span></li>
+      </ol>
+    </section>
+
+    <section class="acr-sec" id="ko-builds">
+      <div class="acr-sec__h"><span class="acr-sec__n">03</span><h2>설치와 빌드: CPU Only vs Full</h2></div>
+      <p>배포본은 두 가지입니다. 처음이라면 <b>CPU Only</b>를 권합니다. 가장 호환성이 좋아 어떤 PC에서도 잘 켜집니다. NVIDIA 그래픽카드가 있고 속도를 높이고 싶다면 <b>Full</b>을 선택하세요.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>빌드</th><th>대상</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td><b>CPU Only</b><br>가장 호환성 좋음</td><td>모든 Windows PC<br>(그래픽카드 무관)</td><td>CUDA 드라이버 없이 실행됩니다. 속도는 느릴 수 있지만 다른 PC에서도 재현성이 가장 좋습니다. 먼저 이 빌드로 시작하길 권합니다.</td></tr>
+            <tr><td><b>Full</b><br>NVIDIA 환경</td><td>NVIDIA GPU 보유 PC</td><td>CUDA 가속을 고려한 배포본입니다. 처리 속도가 빠를 수 있지만 그래픽 드라이버와 PyTorch 호환성의 영향을 받습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-note">압축을 풀고 실행 파일을 그대로 실행하는 방식입니다. 모델 가중치는 포함되어 있지 않으며, 사용자가 직접 호환 <code>.pt</code> 모델을 모델 로드 버튼으로 불러옵니다(5번 항목 참고).</div>
+    </section>
+
+    <section class="acr-sec" id="ko-specs">
+      <div class="acr-sec__h"><span class="acr-sec__n">04</span><h2>권장 사양</h2></div>
+      <p>아래는 일반적인 기준입니다. CPU Only 빌드는 그래픽카드가 없어도 동작하므로 가장 넓은 환경에서 쓸 수 있습니다.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>항목</th><th>CPU Only (가장 호환성 좋음)</th><th>Full (NVIDIA)</th></tr></thead>
+          <tbody>
+            <tr><td>운영체제</td><td>Windows 10 / 11 (64-bit)</td><td>Windows 10 / 11 (64-bit)</td></tr>
+            <tr><td>그래픽카드</td><td>필요 없음</td><td><b>NVIDIA GPU · VRAM 8GB 이상 권장</b></td></tr>
+            <tr><td>메모리(RAM)</td><td>16GB 이상 권장</td><td>16GB 이상 권장</td></tr>
+            <tr><td>CPU</td><td>4코어 이상 (6~8코어 권장)</td><td>4코어 이상</td></tr>
+            <tr><td>속도</td><td>느릴 수 있음 (가장 안정적)</td><td>지원 GPU에서 더 빠를 수 있음</td></tr>
+            <tr><td>여유 공간</td><td colspan="2">대량 처리는 RAM 32GB 이상과 충분한 SSD 여유 공간을 권장합니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-note"><b>먼저 CPU Only로 시작하세요.</b> 잘 동작하는 것을 확인한 뒤, 속도가 필요하고 NVIDIA 환경이라면 Full 빌드로 옮기면 됩니다.</div>
+    </section>
+
+    <section class="acr-sec" id="ko-model">
+      <div class="acr-sec__h"><span class="acr-sec__n">05</span><h2>모델 로드와 <code>.pt</code> 모델</h2></div>
+      <p>우측 상단의 <b>모델 로드</b> 버튼을 누릅니다. 로드 전에는 ‘로드 안 됨’으로 표시되고, 자동 감지가 동작하지 않습니다. 호환되는 <code>.pt</code> 모델을 불러오면 자동 감지가 준비되어 일괄 처리를 시작할 수 있습니다.</p>
+      <figure class="acr-fig acr-fig--crop">
+        <img src="https://blog.kakaocdn.net/dna/pzVPd/dJMcafAoP2d/AAAAAAAAAAAAAAAAAAAAALFOO2piKcQsezuZStbmZnqEJsjndR9fJRz3lrQcJZLu/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=h%2BDHGzEQNQneathbyQjcvwQUOls%3D" alt="앱 화면: 상단 오른쪽 모델 로드 영역">
+        <figcaption>상단 오른쪽 ‘모델 로드’ 영역. 모델을 불러오면 자동 감지가 켜집니다.</figcaption>
+      </figure>
+      <div class="acr-note">모델 가중치 파일은 앱에 포함되어 있지 않습니다. 사용자가 직접 호환 <code>.pt</code> 모델을 준비해 모델 로드 버튼으로 불러오세요. 모델 파일 위치 안내는 배포 페이지의 모델 가이드를 참고하면 됩니다.</div>
+    </section>
+
+    <section class="acr-sec" id="ko-folder">
+      <div class="acr-sec__h"><span class="acr-sec__n">06</span><h2>폴더 작업 흐름</h2></div>
+      <p>입력 폴더 버튼으로 폴더를 선택하면, 폴더 안 이미지가 왼쪽 목록에 채워지고 ‘대기 중(PENDING)’으로 표시됩니다. 좌측 탭(전체 · 검열됨 · 정상 · 대기 중 · 실패)으로 상태별로 추려 볼 수 있습니다.</p>
+      <div class="acr-figrow">
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/c3rjnQ/dJMcahydxoo/AAAAAAAAAAAAAAAAAAAAAKkWexhwfJhYx4ahPzhPAwzslrBqFQsnS6m8j7Q3EPQX/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=m57s6a0pnxHa%2BCjdmcZTZaZbMto%3D" alt="앱 화면: 폴더를 열기 전 빈 작업공간"><figcaption>① 빈 작업공간: 폴더를 열기 전 첫 화면.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/cKNBN4/dJMcagswqkS/AAAAAAAAAAAAAAAAAAAAAAm3yKWM6Vw8kA5PrPVXjbASzzkM76YtwQWjXOV9-zhr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=HCrtYNH7X421VPLc%2FrVgUXPzDsI%3D" alt="앱 화면: 폴더를 스캔해 이미지가 ‘대기 중’으로 채워진 목록"><figcaption>② 폴더 스캔: 목록이 채워지고 ‘대기 중’으로 표시됩니다.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="ko-batch">
+      <div class="acr-sec__h"><span class="acr-sec__n">07</span><h2>일괄 처리</h2></div>
+      <p>일괄 시작(F5) 버튼을 누르면 폴더 전체를 한 번에 처리합니다. 감지된 영역에 선택한 보호 방식(모자이크·블러·흑백·단색)이 적용되고, 하단에 처리 완료 개수와 소요 시간이 표시됩니다.</p>
+      <figure class="acr-fig">
+        <img src="https://blog.kakaocdn.net/dna/dpvS6N/dJMcabkvxUW/AAAAAAAAAAAAAAAAAAAAAEfKB_g-gBlljwY0dU1Z7RqYwdvnHOZow92Ml2LhEZUD/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=dQz%2Bu8qOc3M59iqH%2FR08P6uUfGE%3D" alt="앱 화면: 일괄 처리가 끝난 화면 (예시는 테스트 이미지)">
+        <figcaption>앱 화면: 일괄 처리 완료. 화면의 예시는 테스트 이미지입니다.</figcaption>
+      </figure>
+    </section>
+
+    <section class="acr-sec" id="ko-styles">
+      <div class="acr-sec__h"><span class="acr-sec__n">08</span><h2>보호 방식</h2></div>
+      <p>단색 · 흑백 · 블러 · 모자이크 네 가지를 <b>같은 보호 영역</b>에 적용합니다. 방식 선택은 “어떻게 가릴지”만 정합니다. 방식을 바꿔도 감지 범위나 영역 크기는 변하지 않습니다.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>방식</th><th>가림 강도</th><th>형태 보존</th><th>주요 설정</th></tr></thead>
+          <tbody>
+            <tr><td><b>단색(솔리드)</b></td><td>가장 강함</td><td>없음 (완전히 덮음)</td><td>색 · 불투명도</td></tr>
+            <tr><td><b>모자이크</b></td><td>강함</td><td>대략적 윤곽</td><td>블록 크기 · 불투명도</td></tr>
+            <tr><td><b>블러</b></td><td>중간</td><td>흐릿한 윤곽</td><td>마스크 경계 블러</td></tr>
+            <tr><td><b>흑백(그레이스케일)</b></td><td>약함</td><td>형태 유지 (색만 제거)</td><td>없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="ko-sens">
+      <div class="acr-sec__h"><span class="acr-sec__n">09</span><h2>감지 민감도</h2></div>
+      <p>감지 민감도는 후보를 얼마나 넓게 잡을지 정하는 임계값입니다. 보호 방식과는 <b>다른 설정</b>입니다.</p>
+      <div class="acr-note"><b>핵심:</b> 값이 <b>낮을수록(예: 0.01) 더 민감하게, 더 넓게</b> 후보를 잡습니다. 값이 높을수록 확실한 후보만 남습니다.</div>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>임계값</th><th>후보 영역</th><th>언제 쓰나</th></tr></thead>
+          <tbody>
+            <tr><td><b>0.01</b> (낮음)</td><td>가장 넓게 · 가장 민감</td><td>놓치는 영역을 줄이고 싶을 때 (이후 수동 정리)</td></tr>
+            <tr><td><b>0.20 ~ 0.50</b></td><td>권장 시작 범위</td><td>대부분의 경우 여기서 시작</td></tr>
+            <tr><td><b>0.50</b> (높음)</td><td>확실한 후보만</td><td>과다 검출을 줄이고 싶을 때</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>가장 좋은 값은 사용하는 모델과 이미지에 따라 달라집니다. <b>0.20~0.50</b>에서 시작해 결과를 보며 조금씩 맞추세요. 너무 많이 잡히면 값을 올리고, 놓치는 곳이 있으면 값을 내린 뒤 불필요한 부분을 복구/지우개로 정리하면 됩니다.</p>
+    </section>
+
+    <section class="acr-sec" id="ko-tools">
+      <div class="acr-sec__h"><span class="acr-sec__n">10</span><h2>수동 보정 도구</h2></div>
+      <p>자동 결과 위에서 필요한 곳만 직접 다듬습니다. 도구 막대에서 선택하거나 단축키로 빠르게 전환할 수 있습니다.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>도구</th><th>단축키</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td><b>브러시 검열</b></td><td><span class="acr-kbd">B</span></td><td>원하는 영역을 직접 칠해 가립니다. 크기는 <span class="acr-kbd">[</span> / <span class="acr-kbd">]</span>로 조절합니다.</td></tr>
+            <tr><td><b>복구/지우개</b></td><td><span class="acr-kbd">X</span></td><td>과하게 가린 곳을 되돌립니다.</td></tr>
+            <tr><td><b>영역 감지</b></td><td><span class="acr-kbd">D</span></td><td>오른쪽 버튼으로 사각 영역을 드래그하면 그 범위를 한 번에 보호합니다.</td></tr>
+            <tr><td><b>스탬프 도구</b></td><td><span class="acr-kbd">E</span></td><td>반복되는 보정을 빠르게 찍어 적용합니다.</td></tr>
+            <tr><td><b>퀵마스크</b></td><td><span class="acr-kbd">A</span></td><td>검열 오버레이를 켜고 꺼서 적용 상태를 확인합니다. <span class="acr-kbd">5</span>로 오버레이만 빠르게 토글할 수 있습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-figrow">
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/d0p73X/dJMcabY6yN1/AAAAAAAAAAAAAAAAAAAAAHuc1bPgpaQaT6nR5WYXj0DJGNIG5gGE5nZcVtn__i9E/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=%2B6lgboJO%2FLM5OElQ5WPYUelT%2Fis%3D" alt="앱 화면: 수동 보정 중인 화면 (브러시 커서가 보임)"><figcaption>앱 화면: 필요한 곳만 직접 보정.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/coRvBk/dJMcacXXGIg/AAAAAAAAAAAAAAAAAAAAAEKWBXXWxjiUcakVVSjoBbLftRmGmaOk15_5JHI35R7Y/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=dTLBc8cIfN6QsQtbYTUjns26KbM%3D" alt="앱 화면: 영역 감지로 지정한 사각 영역에 보호가 적용된 모습"><figcaption>앱 화면: 영역 감지로 한 번에 보호.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="ko-save">
+      <div class="acr-sec__h"><span class="acr-sec__n">11</span><h2>자동 저장과 출력</h2></div>
+      <p>처리와 보정 결과는 작업을 진행하는 동안 <b>자동으로 적용·저장</b>됩니다. 출력 폴더에 접미사를 붙여 저장되며, 별도의 수동 저장 단계를 누를 필요가 없습니다. 원본은 그대로 두고 결과만 출력 폴더에 따로 저장됩니다.</p>
+      <figure class="acr-fig">
+        <img src="https://blog.kakaocdn.net/dna/y70G8/dJMcabkvxVm/AAAAAAAAAAAAAAAAAAAAANUyW8GxsrhKKTIGsn9Ba2L4zqBrGsoIZRbfzrJ7G4-B/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=aRHfeyi3mVqkN1T9PzP1qhynDI8%3D" alt="앱 화면: 설정 대화상자의 저장 탭">
+        <figcaption>앱 화면: 저장 설정 대화상자. 출력 형식·품질·파일명 접미사·출력 폴더를 바꿀 수 있습니다.</figcaption>
+      </figure>
+      <div class="acr-note"><b>참고:</b> 출력 폴더, 파일명 접미사, 품질은 <b>설정 → 저장</b>에서 조정합니다.</div>
+    </section>
+
+    <section class="acr-sec" id="ko-keys">
+      <div class="acr-sec__h"><span class="acr-sec__n">12</span><h2>단축키 한눈에</h2></div>
+      <p>단축키는 도움말에서 확인하거나 설정에서 동작별로 직접 바꿀 수 있습니다.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>키</th><th>동작</th></tr></thead>
+          <tbody>
+            <tr><td><span class="acr-kbd">B</span></td><td>브러시 검열</td></tr>
+            <tr><td><span class="acr-kbd">X</span></td><td>복구/지우개</td></tr>
+            <tr><td><span class="acr-kbd">D</span></td><td>영역 감지</td></tr>
+            <tr><td><span class="acr-kbd">E</span></td><td>스탬프 도구</td></tr>
+            <tr><td><span class="acr-kbd">A</span></td><td>퀵마스크</td></tr>
+            <tr><td><span class="acr-kbd">5</span></td><td>퀵마스크 오버레이 토글</td></tr>
+            <tr><td><span class="acr-kbd">Tab</span></td><td>원본 미리보기 (원본과 대조)</td></tr>
+            <tr><td><span class="acr-kbd">F5</span></td><td>일괄 시작</td></tr>
+            <tr><td><span class="acr-kbd">F9</span></td><td>현재 이미지만 검열</td></tr>
+            <tr><td><span class="acr-kbd">W</span></td><td>현재 이미지 초기화</td></tr>
+            <tr><td><span class="acr-kbd">[</span> / <span class="acr-kbd">]</span></td><td>브러시 크기 줄이기 / 늘리기</td></tr>
+            <tr><td><span class="acr-kbd">Ctrl+Z</span> / <span class="acr-kbd">Ctrl+Y</span></td><td>되돌리기 / 다시 실행</td></tr>
+            <tr><td><span class="acr-kbd">Ctrl+Shift+Z</span></td><td>대체 다시 실행</td></tr>
+            <tr><td><span class="acr-kbd">&larr;</span> / <span class="acr-kbd">&rarr;</span></td><td>이전 / 다음 이미지</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="acr-fig">
+        <img src="https://blog.kakaocdn.net/dna/bDACl3/dJMcadJfnOj/AAAAAAAAAAAAAAAAAAAAAK5eVp4jH_18GnNdn2K88HAqxUstB32MMQlkdL2RLKhw/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=fZkfSw0N%2Bcecafc%2BE8mwWej%2FSc0%3D" alt="앱 화면: 단축키 도움말 패널">
+        <figcaption>앱 화면: 단축키 도움말 패널.</figcaption>
+      </figure>
+    </section>
+
+    <section class="acr-sec" id="ko-trouble">
+      <div class="acr-sec__h"><span class="acr-sec__n">13</span><h2>문제 해결</h2></div>
+      <div class="acr-faq">
+        <details><summary>자동 감지가 동작하지 않아요.</summary><div class="acr-faq__body"><p>모델이 로드되었는지 확인하세요. 로드 전에는 ‘로드 안 됨’으로 표시되고 자동 감지가 동작하지 않습니다. 호환되는 <code>.pt</code> 모델을 모델 로드 버튼으로 불러온 뒤 다시 시도하세요.</p></div></details>
+        <details><summary>Full 빌드가 잘 켜지지 않아요.</summary><div class="acr-faq__body"><p>Full 빌드는 그래픽 드라이버와 PyTorch 호환성의 영향을 받습니다. 가장 호환성이 좋은 <b>CPU Only</b> 빌드로 먼저 동작을 확인해 보세요.</p></div></details>
+        <details><summary>처리가 너무 느려요.</summary><div class="acr-faq__body"><p>CPU Only 빌드는 속도가 느릴 수 있습니다. NVIDIA GPU(8GB 이상 권장)가 있다면 Full 빌드에서 더 빠를 수 있습니다. 한 번에 처리하는 이미지 양을 줄이는 것도 도움이 됩니다.</p></div></details>
+        <details><summary>너무 많이 / 적게 잡혀요.</summary><div class="acr-faq__body"><p>감지 민감도를 조정하세요. 값이 낮을수록(예: 0.01) 더 넓게 잡고, 높일수록 확실한 후보만 남습니다. 그 뒤 브러시 검열과 복구/지우개로 마무리하면 됩니다.</p></div></details>
+        <details><summary>과하게 가린 부분을 되돌리고 싶어요.</summary><div class="acr-faq__body"><p>복구/지우개(<span class="acr-kbd">X</span>)로 일부만 되돌리거나, 현재 이미지 초기화(<span class="acr-kbd">W</span>)로 한 장을 처음 상태로 되돌릴 수 있습니다.</p></div></details>
+        <details><summary>결과 파일이 어디에 저장됐는지 모르겠어요.</summary><div class="acr-faq__body"><p>결과는 출력 폴더에 접미사를 붙여 자동 저장됩니다. 출력 폴더와 파일명 접미사는 <b>설정 → 저장</b>에서 확인·변경할 수 있습니다.</p></div></details>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="ko-privacy">
+      <div class="acr-sec__h"><span class="acr-sec__n">14</span><h2>댓글을 남기기 전에</h2></div>
+      <p>대부분의 질문은 공개 댓글로 충분히 도와드릴 수 있습니다. 다만 몇 가지는 메일이 더 안전합니다. 어떤 경우에 어디로 보내면 되는지 아래에 정리했습니다.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>문의 내용</th><th>보낼 곳</th></tr></thead>
+          <tbody>
+            <tr><td>일반 질문, 설치 문제, 모델 로드 문제, 기능 아이디어</td><td>이 글에 Tistory 댓글로 남겨 주세요.</td></tr>
+            <tr><td>특정 이미지가 제대로 보호·감지되지 않는 경우</td><td>이미지를 공개로 올리지 말고 <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20detection%20feedback">zeus30313@gmail.com</a>으로 메일을 보내 주세요.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-note acr-note--safe">
+        <p style="margin:0 0 8px"><b>공개 댓글에는 개인정보를 남기지 마세요.</b></p>
+        <p style="margin:0;color:inherit">민감한 이미지, 개인 PC 경로, 계정 이름, 개인정보는 공개 댓글에 올리지 마세요. 화면 캡처가 필요할 때는 개인정보를 먼저 가리고 꼭 필요한 부분만 잘라서 올려 주세요.</p>
+      </div>
+      <h3>감지가 안 되는 이미지를 알릴 때</h3>
+      <p>감지 피드백은 이미지가 없으면 확인하기 어렵습니다. 그래서 공개로 올리기보다 메일로 보내 주시는 편이 좋습니다. 화면 캡처와 함께, 가능하면 감지에 실패한 실제 이미지, 그리고 어디가 가려졌어야 하는지 짧은 설명을 첨부해 주세요. 그 이미지가 있어야 문제를 재현할 수 있습니다.</p>
+      <h3>개선 아이디어를 남길 때</h3>
+      <p>개선 아이디어는 Tistory 댓글이 가장 좋습니다. 구체적으로 적어 주실수록 도움이 됩니다. 무엇이 불편했는지, 어떤 화면이나 단계에서 생겼는지, 기대한 결과는 무엇이었는지, 어떻게 하면 작업이 더 편해질지 적어 주세요. 막연한 피드백은 반영하기 어렵지만, 구체적인 재현 단계와 기대 동작은 앱을 개선하는 데 큰 도움이 됩니다.</p>
+    </section>
+
+    <section class="acr-sec" id="ko-feedback">
+      <div class="acr-sec__h"><span class="acr-sec__n">15</span><h2>댓글로 문의하기</h2></div>
+      <div class="acr-cta">
+        <h3>질문·버그·제안은 이 글의 댓글로 남겨 주세요</h3>
+        <p>질문, 버그 제보, 개선 제안은 이 글 <b>아래의 댓글</b>로 남겨 주세요. 공개 댓글에는 개인 경로, 계정 정보, 민감한 이미지를 올리지 말아 주세요.</p>
+        <a class="acr-btn acr-btn--ghost" href="#acr-top" data-acr-jump="acr-top">맨 위로</a>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="ko-commercial">
+      <div class="acr-sec__h"><span class="acr-sec__n">16</span><h2>상업적 이용 문의</h2></div>
+      <p>상업적 이용, 유료 배포, 제품·서비스 번들, 회사 내부 도입 등은 댓글이 아니라 메일로 문의해 주세요.</p>
+      <div class="acr-cta">
+        <h3>상업적 이용 문의</h3>
+        <p>아래 메일로 사용 목적과 범위를 알려 주시면 안내해 드립니다.</p>
+        <a class="acr-btn" href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">zeus30313@gmail.com</a>
+      </div>
+    </section>
+
+    <footer class="acr-foot">
+      <p><b>AutoCensoR</b> · Windows 이미지 보호 도구 · 자동 처리 + 수동 보정 · © 2026</p>
+      <p style="margin:6px 0 0">질문과 제안은 이 글의 댓글로, 상업적 이용은 <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">메일</a>로 받습니다.</p>
+    </footer>
+  </section>
+
+  <!-- ====================== ENGLISH ====================== -->
+  <section class="acr-lang" data-acr-panel="en">
+    <header class="acr-hero">
+      <span class="acr-kicker">AutoCensoR User Manual</span>
+      <h1 class="acr-h1">Run the folder first,<br>then fix <em>only what matters.</em></h1>
+      <p class="acr-lede">AutoCensoR is a Windows desktop app that detects regions to protect across an image folder, processes them in one batch, and lets you finish the rest by hand with brush and region tools.</p>
+      <ul class="acr-meta">
+        <li>Platform · Windows</li>
+        <li>Auto pass + manual touch-up</li>
+        <li>Auto-saved output</li>
+        <li>Installed desktop app</li>
+      </ul>
+    </header>
+
+    <figure class="acr-fig">
+      <img src="https://blog.kakaocdn.net/dna/ceug26/dJMcadJfnOk/AAAAAAAAAAAAAAAAAAAAAEp7XZa1hbazmIlvmhLuJY0N74fGYyqujJlDMZSNOcwD/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=YySzbd1iOm2qqR2yosVtKRQi%2Ffc%3D" alt="AutoCensoR running in English: an empty workspace before a folder is loaded">
+      <figcaption>AutoCensoR running in English. This public guide never includes private paths or sensitive images.</figcaption>
+    </figure>
+
+    <div class="acr-note"><b>About these screenshots:</b> the captures below show the English interface. The example image inside each one is a test image, not a real photo, and public screenshots never include private paths.</div>
+
+    <nav class="acr-toc" aria-label="Table of contents">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#en-what" data-acr-jump="en-what"><span class="n">01</span>What AutoCensoR does</a></li>
+        <li><a href="#en-quick" data-acr-jump="en-quick"><span class="n">02</span>Quick start</a></li>
+        <li><a href="#en-builds" data-acr-jump="en-builds"><span class="n">03</span>Installation &amp; builds: CPU Only vs Full</a></li>
+        <li><a href="#en-specs" data-acr-jump="en-specs"><span class="n">04</span>Recommended specs</a></li>
+        <li><a href="#en-model" data-acr-jump="en-model"><span class="n">05</span>Model loading &amp; the <code>.pt</code> model</a></li>
+        <li><a href="#en-folder" data-acr-jump="en-folder"><span class="n">06</span>Folder workflow</a></li>
+        <li><a href="#en-batch" data-acr-jump="en-batch"><span class="n">07</span>Batch processing</a></li>
+        <li><a href="#en-styles" data-acr-jump="en-styles"><span class="n">08</span>Protection styles</a></li>
+        <li><a href="#en-sens" data-acr-jump="en-sens"><span class="n">09</span>Detection sensitivity</a></li>
+        <li><a href="#en-tools" data-acr-jump="en-tools"><span class="n">10</span>Manual correction tools</a></li>
+        <li><a href="#en-save" data-acr-jump="en-save"><span class="n">11</span>Auto-save &amp; output</a></li>
+        <li><a href="#en-keys" data-acr-jump="en-keys"><span class="n">12</span>Shortcuts overview</a></li>
+        <li><a href="#en-trouble" data-acr-jump="en-trouble"><span class="n">13</span>Troubleshooting</a></li>
+        <li><a href="#en-privacy" data-acr-jump="en-privacy"><span class="n">14</span>Before you comment</a></li>
+        <li><a href="#en-feedback" data-acr-jump="en-feedback"><span class="n">15</span>Feedback via comments</a></li>
+        <li><a href="#en-commercial" data-acr-jump="en-commercial"><span class="n">16</span>Commercial use</a></li>
+      </ol>
+    </nav>
+
+    <section class="acr-sec" id="en-what">
+      <div class="acr-sec__h"><span class="acr-sec__n">01</span><h2>What AutoCensoR does</h2></div>
+      <p>AutoCensoR works on a <b>whole folder</b>, not one image at a time. Open a folder, load a model, run a batch, and it finds candidate regions to protect and covers them in one pass. You only step in for the parts the automatic pass didn't get right.</p>
+      <ul class="acr-points">
+        <li><b>Process a folder at once</b><span>Review and process all images in a folder together.</span></li>
+        <li><b>Fix only what's needed</b><span>Touch up what automation missed with brush and region tools.</span></li>
+        <li><b>Output saved automatically</b><span>Results are written to an output folder with a suffix.</span></li>
+      </ul>
+      <div class="acr-note"><b>An honest note:</b> it does not guarantee perfect automatic censoring. Automation finds candidates quickly; the final judgment and clean-up are yours. Originals are never overwritten, and results go to a separate output folder.</div>
+    </section>
+
+    <section class="acr-sec" id="en-quick">
+      <div class="acr-sec__h"><span class="acr-sec__n">02</span><h2>Quick start</h2></div>
+      <p>New here? Just follow these five steps. Each one is explained in more detail below.</p>
+      <ol class="acr-steps">
+        <li><b>Choose an image folder</b><span>Open an input folder with the Input Folder button; the list fills in and items show as “pending”.</span></li>
+        <li><b>Load a model</b><span>Load a compatible <code>.pt</code> model with Load Model. Detection does not run before a model is loaded.</span></li>
+        <li><b>Run batch processing</b><span>Press Start Batch (F5) to process the whole folder.</span></li>
+        <li><b>Correct manually</b><span>Use Brush censor, Restore/eraser, Region detect, Stamp tool, and Quick mask for the final touch-up.</span></li>
+        <li><b>Confirm saving</b><span>Results are saved to the output folder automatically while you work, with no separate save button.</span></li>
+      </ol>
+    </section>
+
+    <section class="acr-sec" id="en-builds">
+      <div class="acr-sec__h"><span class="acr-sec__n">03</span><h2>Installation &amp; builds: CPU Only vs Full</h2></div>
+      <p>There are two builds. If you're starting out, choose <b>CPU Only</b>: it's the most compatible and starts reliably on any PC. Pick <b>Full</b> only if you have an NVIDIA graphics card and want more speed.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>Build</th><th>For</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><b>CPU Only</b><br>most compatible</td><td>Any Windows PC<br>(no GPU needed)</td><td>Runs without CUDA drivers. It can be slower, but reproduces most reliably across machines. Recommended as the first build to try.</td></tr>
+            <tr><td><b>Full</b><br>NVIDIA setup</td><td>PCs with an NVIDIA GPU</td><td>Built with CUDA acceleration in mind. Processing can be faster, but it depends on graphics driver and PyTorch compatibility.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-note">You unzip and run the executable directly. Model weights are not bundled, so load your own compatible <code>.pt</code> model with Load Model (see item 5).</div>
+    </section>
+
+    <section class="acr-sec" id="en-specs">
+      <div class="acr-sec__h"><span class="acr-sec__n">04</span><h2>Recommended specs</h2></div>
+      <p>The figures below are general guidance. The CPU Only build runs without a graphics card, so it works in the widest range of environments.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>Item</th><th>CPU Only (most compatible)</th><th>Full (NVIDIA)</th></tr></thead>
+          <tbody>
+            <tr><td>OS</td><td>Windows 10 / 11 (64-bit)</td><td>Windows 10 / 11 (64-bit)</td></tr>
+            <tr><td>Graphics</td><td>Not required</td><td><b>NVIDIA GPU · 8GB VRAM or more recommended</b></td></tr>
+            <tr><td>Memory (RAM)</td><td>16GB or more recommended</td><td>16GB or more recommended</td></tr>
+            <tr><td>CPU</td><td>4 cores or more (6 to 8 recommended)</td><td>4 cores or more</td></tr>
+            <tr><td>Speed</td><td>May be slower (most stable)</td><td>Can be faster on a supported GPU</td></tr>
+            <tr><td>Free space</td><td colspan="2">For larger batches, 32GB or more RAM and enough free SSD space are recommended.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-note"><b>Start with CPU Only.</b> Confirm it works, then move to the Full build later if you need speed and have an NVIDIA setup.</div>
+    </section>
+
+    <section class="acr-sec" id="en-model">
+      <div class="acr-sec__h"><span class="acr-sec__n">05</span><h2>Model loading &amp; the <code>.pt</code> model</h2></div>
+      <p>Press the <b>Load Model</b> button at the top right. Before loading it shows “not loaded” and detection does not run. Once a compatible <code>.pt</code> model is loaded, detection becomes ready and you can start batch processing.</p>
+      <figure class="acr-fig acr-fig--crop">
+        <img src="https://blog.kakaocdn.net/dna/b0y4yN/dJMcadii491/AAAAAAAAAAAAAAAAAAAAAPe2KbxYeLmmIk6E0iUUh-YdhBl1C3fzM8yondHNMxPb/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=ctMntxq6%2Fb2gYo%2FuLTMnfg38Mec%3D" alt="App screen: the model load area at the top right">
+        <figcaption>The “Load Model” control at the top right. Detection turns on after loading completes.</figcaption>
+      </figure>
+      <div class="acr-note">Model weight files are not bundled with the app. Prepare your own compatible <code>.pt</code> model and load it with Load Model. For where to place the model file, see the model guide on the downloads page.</div>
+    </section>
+
+    <section class="acr-sec" id="en-folder">
+      <div class="acr-sec__h"><span class="acr-sec__n">06</span><h2>Folder workflow</h2></div>
+      <p>Open an input folder with the Input Folder button, and its images fill the list on the left, marked “PENDING”. Use the left-side tabs (All · Censored · Clean · Pending · Failed) to filter by status.</p>
+      <div class="acr-figrow">
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/baT3Ny/dJMcadii492/AAAAAAAAAAAAAAAAAAAAAOxw0SoYPWi_RsW4BelIguc_erxFjI4KMq8ubEyDO32b/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=pfZ9WjZ4XC8hHmPZaCNnenWwnSo%3D" alt="App screen: empty workspace before a folder is opened"><figcaption>① Empty workspace: the first screen before opening a folder.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/sH49m/dJMcadoXZ1Z/AAAAAAAAAAAAAAAAAAAAAN3iRqcpO2eSXGHh0WWW0VSKGyIC0N4iwSfq9oNh58Mn/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=J%2FSCJkOrt7xGbWZiSIH88YbPCqs%3D" alt="App screen: folder scanned, images listed as pending"><figcaption>② Folder scanned: the list fills in and shows “pending”.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="en-batch">
+      <div class="acr-sec__h"><span class="acr-sec__n">07</span><h2>Batch processing</h2></div>
+      <p>Press Start Batch (F5) to process the whole folder at once. Your chosen protection style (mosaic, blur, grayscale, or solid) is applied to detected regions, and the bottom bar shows the completed count and elapsed time.</p>
+      <figure class="acr-fig">
+        <img src="https://blog.kakaocdn.net/dna/c9LzLp/dJMcadoXZ10/AAAAAAAAAAAAAAAAAAAAABHWPwcBWb9bjNTcaWI3Ot-W8gY2c6TYOmXIA3i1gBYj/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=IrW2UP%2BJi79sBC9b5JmhBLYhuqI%3D" alt="App screen: batch processing finished (example uses a test image)">
+        <figcaption>App screen: batch processing complete. The example on screen is a test image.</figcaption>
+      </figure>
+    </section>
+
+    <section class="acr-sec" id="en-styles">
+      <div class="acr-sec__h"><span class="acr-sec__n">08</span><h2>Protection styles</h2></div>
+      <p>Solid, grayscale, blur, and mosaic are all applied to the <b>same protected region</b>. The style only decides “how to cover it”. Changing the style never changes the detected range or region size.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>Style</th><th>Strength</th><th>Shape kept</th><th>Main settings</th></tr></thead>
+          <tbody>
+            <tr><td><b>Solid fill</b></td><td>Strongest</td><td>None (fully covered)</td><td>Color · opacity</td></tr>
+            <tr><td><b>Mosaic</b></td><td>Strong</td><td>Rough outline</td><td>Block size · opacity</td></tr>
+            <tr><td><b>Blur</b></td><td>Medium</td><td>Soft outline</td><td>Mask edge blur</td></tr>
+            <tr><td><b>Grayscale</b></td><td>Mild</td><td>Shape kept (color removed)</td><td>None</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="en-sens">
+      <div class="acr-sec__h"><span class="acr-sec__n">09</span><h2>Detection sensitivity</h2></div>
+      <p>Detection sensitivity is a threshold that decides how widely candidates are caught. It is a <b>separate setting</b> from the protection style.</p>
+      <div class="acr-note"><b>Key point:</b> <b>lower values (e.g. 0.01) are more sensitive and catch a wider</b> set of candidates. Higher values keep only the confident ones.</div>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>Threshold</th><th>Candidate regions</th><th>When to use</th></tr></thead>
+          <tbody>
+            <tr><td><b>0.01</b> (low)</td><td>Widest · most sensitive</td><td>To miss fewer regions (then clean up by hand)</td></tr>
+            <tr><td><b>0.20 to 0.50</b></td><td>Recommended starting range</td><td>A good default for most cases</td></tr>
+            <tr><td><b>0.50</b> (high)</td><td>Confident candidates only</td><td>To reduce over-detection</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The best value depends on your model and images. Start at <b>0.20 to 0.50</b> and adjust as you watch the results. If too much is caught, raise it; if regions are missed, lower it and tidy up extras with restore/eraser.</p>
+    </section>
+
+    <section class="acr-sec" id="en-tools">
+      <div class="acr-sec__h"><span class="acr-sec__n">10</span><h2>Manual correction tools</h2></div>
+      <p>Refine only what's needed on top of the automatic result. Pick a tool from the toolbar or switch quickly with shortcuts.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>Tool</th><th>Key</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><b>Brush censor</b></td><td><span class="acr-kbd">B</span></td><td>Paint over the area you want covered. Size adjusts with <span class="acr-kbd">[</span> / <span class="acr-kbd">]</span>.</td></tr>
+            <tr><td><b>Restore/eraser</b></td><td><span class="acr-kbd">X</span></td><td>Undo areas that were covered too much.</td></tr>
+            <tr><td><b>Region detect</b></td><td><span class="acr-kbd">D</span></td><td>Right-drag a rectangle to protect that whole range at once.</td></tr>
+            <tr><td><b>Stamp tool</b></td><td><span class="acr-kbd">E</span></td><td>Stamp repeated corrections quickly.</td></tr>
+            <tr><td><b>Quick mask</b></td><td><span class="acr-kbd">A</span></td><td>Turn the censor overlay on and off to check the result. <span class="acr-kbd">5</span> quickly toggles just the overlay.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-figrow">
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/zxVHk/dJMcadoXZ13/AAAAAAAAAAAAAAAAAAAAALVbknFbm_t1YgGkeuAekZBpGJ_vUnHGOSeoi099l7Di/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=3Dixl2rYAi5Imh2xA2yznQoE%2Fng%3D" alt="App screen: manual correction in progress (brush cursor visible)"><figcaption>App screen: touching up only what's needed.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://blog.kakaocdn.net/dna/bJjCuM/dJMcafNZBzC/AAAAAAAAAAAAAAAAAAAAAANN0OCpU0-9HhpCZPzg1WvUtJqywYsB2Ov_0YIQipCF/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=OI00ODHmGopYYEp0Q7pz3vwLbM4%3D" alt="App screen: a region protected in one action"><figcaption>App screen: Region detect protects in one action.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="en-save">
+      <div class="acr-sec__h"><span class="acr-sec__n">11</span><h2>Auto-save &amp; output</h2></div>
+      <p>Processing and correction results are <b>applied and saved automatically</b> as you work. They are written to the output folder with a suffix, so there is no separate manual save step. Originals are left untouched; only the results go to the output folder.</p>
+      <figure class="acr-fig">
+        <img src="https://blog.kakaocdn.net/dna/bUth2r/dJMcaaMCiG7/AAAAAAAAAAAAAAAAAAAAABU3DL7sQSaZMr8alJx6sZW4rz-RsMCgmbXlJ6B9tUpa/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=f2DPLLK2t6avdeRizxinPWQfqPA%3D" alt="App screen: the Save tab of the settings dialog">
+        <figcaption>App screen: the save settings dialog. You can change output format, quality, filename suffix, and output folder.</figcaption>
+      </figure>
+      <div class="acr-note"><b>Note:</b> output folder, filename suffix, and quality are adjusted under <b>Settings → Save</b>.</div>
+    </section>
+
+    <section class="acr-sec" id="en-keys">
+      <div class="acr-sec__h"><span class="acr-sec__n">12</span><h2>Shortcuts overview</h2></div>
+      <p>Check shortcuts in the help panel, or rebind them per action in settings.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>Key</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><span class="acr-kbd">B</span></td><td>Brush censor</td></tr>
+            <tr><td><span class="acr-kbd">X</span></td><td>Restore/eraser</td></tr>
+            <tr><td><span class="acr-kbd">D</span></td><td>Region detect</td></tr>
+            <tr><td><span class="acr-kbd">E</span></td><td>Stamp tool</td></tr>
+            <tr><td><span class="acr-kbd">A</span></td><td>Quick mask</td></tr>
+            <tr><td><span class="acr-kbd">5</span></td><td>Quick mask overlay toggle</td></tr>
+            <tr><td><span class="acr-kbd">Tab</span></td><td>Preview the original (compare)</td></tr>
+            <tr><td><span class="acr-kbd">F5</span></td><td>Start Batch</td></tr>
+            <tr><td><span class="acr-kbd">F9</span></td><td>Censor current image only</td></tr>
+            <tr><td><span class="acr-kbd">W</span></td><td>Reset current image</td></tr>
+            <tr><td><span class="acr-kbd">[</span> / <span class="acr-kbd">]</span></td><td>Brush size smaller / larger</td></tr>
+            <tr><td><span class="acr-kbd">Ctrl+Z</span> / <span class="acr-kbd">Ctrl+Y</span></td><td>Undo / redo</td></tr>
+            <tr><td><span class="acr-kbd">Ctrl+Shift+Z</span></td><td>Alternative redo</td></tr>
+            <tr><td><span class="acr-kbd">&larr;</span> / <span class="acr-kbd">&rarr;</span></td><td>Previous / next image</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="acr-fig">
+        <img src="https://blog.kakaocdn.net/dna/cDJaP0/dJMcajit3rG/AAAAAAAAAAAAAAAAAAAAABaHbcFjOZ2_kK2qUbRpU_p0L9vZVb2zY4xUu1rivrm-/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1782831599&allow_ip=&allow_referer=&signature=MfMG8nFthPSK3lmmagZl1TMksQ0%3D" alt="App screen: shortcuts help panel">
+        <figcaption>App screen: shortcuts help panel.</figcaption>
+      </figure>
+    </section>
+
+    <section class="acr-sec" id="en-trouble">
+      <div class="acr-sec__h"><span class="acr-sec__n">13</span><h2>Troubleshooting</h2></div>
+      <div class="acr-faq">
+        <details><summary>Detection isn't running.</summary><div class="acr-faq__body"><p>Make sure a model is loaded. Before loading it shows “not loaded” and detection does not run. Load a compatible <code>.pt</code> model with Load Model and try again.</p></div></details>
+        <details><summary>The Full build won't start properly.</summary><div class="acr-faq__body"><p>The Full build depends on graphics driver and PyTorch compatibility. Confirm things work with the most compatible <b>CPU Only</b> build first.</p></div></details>
+        <details><summary>Processing is very slow.</summary><div class="acr-faq__body"><p>The CPU Only build can be slow. With an NVIDIA GPU (8GB+ recommended), the Full build can be faster. Processing fewer images at a time also helps.</p></div></details>
+        <details><summary>Too much / too little is being caught.</summary><div class="acr-faq__body"><p>Adjust the detection sensitivity. Lower values (e.g. 0.01) catch more widely; higher values keep only confident candidates. Then finish with brush/restore.</p></div></details>
+        <details><summary>I want to undo an over-covered area.</summary><div class="acr-faq__body"><p>Use restore/eraser (<span class="acr-kbd">X</span>) to undo part of it, or reset current image (<span class="acr-kbd">W</span>) to return one image to its original state.</p></div></details>
+        <details><summary>I can't find where the output was saved.</summary><div class="acr-faq__body"><p>Results are auto-saved to the output folder with a suffix. Check or change the output folder and suffix under <b>Settings → Save</b>.</p></div></details>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="en-privacy">
+      <div class="acr-sec__h"><span class="acr-sec__n">14</span><h2>Before you comment</h2></div>
+      <p>Most questions are easy to handle in public comments. A few are better sent by email. Here is where to send what.</p>
+      <div class="acr-tablewrap">
+        <table class="acr-table">
+          <thead><tr><th>What you need help with</th><th>Where to send it</th></tr></thead>
+          <tbody>
+            <tr><td>General questions, installation trouble, model loading trouble, and feature ideas</td><td>Leave a Tistory comment on this post.</td></tr>
+            <tr><td>An image that is not being protected or detected correctly</td><td>Email <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20detection%20feedback">zeus30313@gmail.com</a> instead of posting the image in public.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="acr-note acr-note--safe">
+        <p style="margin:0 0 8px"><b>Keep public comments free of private data.</b></p>
+        <p style="margin:0;color:inherit">Please do not post sensitive images, private file paths, account names, or personal data in public comments. When a screenshot is needed, hide personal details first and crop to only what matters.</p>
+      </div>
+      <h3>Reporting a detection problem</h3>
+      <p>Detection feedback is hard to act on without the image, so please send it by email rather than posting it publicly. Attach a screenshot and, when possible, the actual image that failed detection, plus a short note on what should have been covered. That image evidence is what makes the problem reproducible.</p>
+      <h3>Suggesting an improvement</h3>
+      <p>For improvement ideas, a Tistory comment is perfect. Concrete details help the most: what felt inconvenient, which screen or step it happened on, what result you expected, and what would make the workflow easier. Vague feedback is hard to act on, while specific reproduction steps and expected behavior make the app easier to improve.</p>
+    </section>
+
+    <section class="acr-sec" id="en-feedback">
+      <div class="acr-sec__h"><span class="acr-sec__n">15</span><h2>Feedback via comments</h2></div>
+      <div class="acr-cta">
+        <h3>Leave questions, bugs, and ideas in the comments</h3>
+        <p>For questions, bug reports, and improvement requests, use the <b>comment section below</b> this post. Do not post private paths, account details, or sensitive images in public comments.</p>
+        <a class="acr-btn acr-btn--ghost" href="#acr-top" data-acr-jump="acr-top">Back to top</a>
+      </div>
+    </section>
+
+    <section class="acr-sec" id="en-commercial">
+      <div class="acr-sec__h"><span class="acr-sec__n">16</span><h2>Commercial use</h2></div>
+      <p>For commercial use, paid redistribution, product/service bundling, or in-company deployment, contact me by email rather than in the comments.</p>
+      <div class="acr-cta">
+        <h3>Commercial use inquiry</h3>
+        <p>Tell me your intended use and scope at the address below and I'll follow up.</p>
+        <a class="acr-btn" href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">zeus30313@gmail.com</a>
+      </div>
+    </section>
+
+    <footer class="acr-foot">
+      <p><b>AutoCensoR</b> · Windows image protection tool · auto pass + manual touch-up · © 2026</p>
+      <p style="margin:6px 0 0">Questions and ideas go in the comments; commercial use goes to <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">email</a>.</p>
+    </footer>
+  </section>
+
+  <script>
+    (function () {
+      var root = document.currentScript.closest(".acr-post");
+      if (!root) return;
+      var btns = [].slice.call(root.querySelectorAll("[data-acr-lang]"));
+      var panels = [].slice.call(root.querySelectorAll("[data-acr-panel]"));
+      btns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var lang = btn.getAttribute("data-acr-lang");
+          btns.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+          panels.forEach(function (p) { p.classList.toggle("is-on", p.getAttribute("data-acr-panel") === lang); });
+        });
+      });
+      // In-article smooth jump for the table of contents (scoped to this post).
+      root.addEventListener("click", function (e) {
+        var a = e.target.closest("[data-acr-jump]");
+        if (!a || !root.contains(a)) return;
+        var id = a.getAttribute("data-acr-jump");
+        var target = root.querySelector("#" + id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      // Click-to-enlarge for figure screenshots (scoped to this post).
+      var figImgs = [].slice.call(root.querySelectorAll(".acr-fig img"));
+      if (figImgs.length) {
+        var box = document.createElement("div");
+        box.className = "acr-lightbox";
+        box.setAttribute("hidden", "");
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-modal", "true");
+        box.setAttribute("aria-label", "이미지 크게 보기 / Enlarged image");
+        var big = document.createElement("img");
+        big.className = "acr-lightbox__img";
+        big.alt = "";
+        var close = document.createElement("button");
+        close.type = "button";
+        close.className = "acr-lightbox__close";
+        close.setAttribute("aria-label", "닫기 / Close");
+        close.innerHTML = "&times;";
+        box.appendChild(big);
+        box.appendChild(close);
+        document.body.appendChild(box);
+        function lbOpen(src, alt) {
+          if (!src) return;
+          big.src = src; big.alt = alt || "";
+          box.removeAttribute("hidden");
+          document.documentElement.style.overflow = "hidden";
+          close.focus();
+        }
+        function lbHide() {
+          box.setAttribute("hidden", "");
+          big.removeAttribute("src");
+          document.documentElement.style.overflow = "";
+        }
+        figImgs.forEach(function (im) {
+          im.addEventListener("click", function () { lbOpen(im.currentSrc || im.src, im.alt); });
+        });
+        close.addEventListener("click", lbHide);
+        box.addEventListener("click", function (e) { if (e.target === box) lbHide(); });
+        big.addEventListener("click", function (e) { e.stopPropagation(); });
+        document.addEventListener("keydown", function (e) {
+          if (!box.hasAttribute("hidden") && (e.key === "Escape" || e.key === "Esc")) lbHide();
+        });
+      }
+    })();
+  </script>
+</div>
+
