@@ -29,7 +29,7 @@
     .acr-hero{padding:18px 0 6px;border-bottom:1px solid var(--line);margin-bottom:8px}
     .acr-kicker{display:inline-block;font-size:13px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--garnet)}
     .acr-h1{font-size:clamp(28px,5vw,46px);margin:12px 0 14px;font-weight:900}
-    .acr-h1 em{font-style:normal;color:var(--garnet)}
+    .acr-post .acr-h1 em,.acr-post .acr-mark{font-style:normal!important;color:var(--garnet);font-weight:900;letter-spacing:0}
     .acr-lede{font-size:clamp(16px,2.3vw,19px);color:var(--muted);max-width:680px}
     .acr-meta{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px;padding:0;list-style:none}
     .acr-meta li{font-size:13px;font-weight:700;color:var(--slate);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fbf8f9}
@@ -133,8 +133,8 @@
   <section class="acr-lang acr-lang--ko" data-acr-panel="ko">
     <header class="acr-hero">
       <span class="acr-kicker">AutoCensoR 사용 설명서</span>
-      <h1 class="acr-h1">폴더는 먼저 처리하고,<br><em>필요한 곳만</em> 직접 다듬습니다.</h1>
-      <p class="acr-lede">AutoCensoR는 Windows에서 이미지 폴더의 보호할 영역을 자동으로 찾아 한 번에 처리하고, 남는 부분만 브러시 검열, 복구/지우개, 영역 감지 도구로 사람이 빠르게 마무리하는 데스크톱 앱입니다.</p>
+      <h1 class="acr-h1">폴더는 먼저 처리하고,<br><span class="acr-mark">필요한 곳만</span> 직접 다듬습니다.</h1>
+      <p class="acr-lede">AutoCensoR는 Windows 데스크톱 앱입니다. 이미지 폴더에서 보호할 영역을 자동으로 찾아 한 번에 처리하고, 남는 부분만 브러시와 영역 도구로 직접 마무리합니다.</p>
       <ul class="acr-meta">
         <li>플랫폼 · Windows</li>
         <li>자동 처리 + 수동 보정</li>
@@ -145,7 +145,7 @@
 
     <figure class="acr-fig">
       <img src="https://jhks24.github.io/AutoCensoR-Site/assets/release-app.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="release-app.png" loading="eager" decoding="sync" alt="AutoCensoR 작업 화면: 모델이 준비되어 일괄 처리를 시작할 수 있는 상태">
-      <figcaption>AutoCensoR 작업 화면: 모델이 준비된 상태입니다. 공개 글에는 개인 경로나 민감 이미지를 넣지 않습니다.</figcaption>
+      <figcaption>모델이 준비된 작업 화면입니다.</figcaption>
     </figure>
 
     <nav class="acr-toc" aria-label="목차">
@@ -178,12 +178,12 @@
         <li><b>필요한 곳만 보정</b><span>자동이 놓친 부분만 브러시·영역 도구로 마무리합니다.</span></li>
         <li><b>결과 자동 저장</b><span>출력 폴더에 접미사를 붙여 자동으로 저장됩니다.</span></li>
       </ul>
-      <div class="acr-note"><b>솔직한 안내:</b> 완벽한 자동 검열을 보장하지는 않습니다. 자동이 후보를 빠르게 잡아 주고, 마지막 판단과 마무리는 사람이 합니다. 원본은 함부로 덮어쓰지 않고 출력 폴더에 따로 저장합니다.</div>
+      <div class="acr-note"><b>참고:</b> 자동 결과는 마지막 확인이 필요합니다. 원본은 그대로 두고 결과는 출력 폴더에 따로 저장합니다.</div>
     </section>
 
     <section class="acr-sec" id="ko-quick">
       <div class="acr-sec__h"><span class="acr-sec__n">02</span><h2>빠른 시작</h2></div>
-      <p>처음 쓰는 분은 아래 다섯 단계만 따라 하면 됩니다. 각 단계는 뒤에서 더 자세히 다룹니다.</p>
+      <p>처음이라면 아래 다섯 단계만 따라 하세요.</p>
       <ol class="acr-steps">
         <li><b>이미지 폴더 선택</b><span>입력 폴더 버튼으로 이미지 폴더를 선택하면 목록이 채워지고 ‘대기 중’으로 표시됩니다.</span></li>
         <li><b>모델 로드</b><span>모델 로드 버튼으로 호환되는 <code>.pt</code> 모델을 불러옵니다. 로드 전에는 자동 감지가 동작하지 않습니다.</span></li>
@@ -363,7 +363,7 @@
 
     <section class="acr-sec" id="ko-privacy">
       <div class="acr-sec__h"><span class="acr-sec__n">14</span><h2>댓글을 남기기 전에</h2></div>
-      <p>대부분의 질문은 공개 댓글로 충분히 도와드릴 수 있습니다. 다만 몇 가지는 메일이 더 안전합니다. 어떤 경우에 어디로 보내면 되는지 아래에 정리했습니다.</p>
+      <p>일반 질문은 댓글로, 이미지가 필요한 제보는 메일로 보내 주세요.</p>
       <div class="acr-tablewrap">
         <table class="acr-table">
           <thead><tr><th>문의 내용</th><th>보낼 곳</th></tr></thead>
@@ -375,12 +375,12 @@
       </div>
       <div class="acr-note acr-note--safe">
         <p style="margin:0 0 8px"><b>공개 댓글에는 개인정보를 남기지 마세요.</b></p>
-        <p style="margin:0;color:inherit">민감한 이미지, 개인 PC 경로, 계정 이름, 개인정보는 공개 댓글에 올리지 마세요. 화면 캡처가 필요할 때는 개인정보를 먼저 가리고 꼭 필요한 부분만 잘라서 올려 주세요.</p>
+        <p style="margin:0;color:inherit">민감한 이미지, 개인 PC 경로, 계정 정보는 공개 댓글에 올리지 마세요. 캡처가 필요하면 관련 부분만 잘라 주세요.</p>
       </div>
       <h3>감지가 안 되는 이미지를 알릴 때</h3>
-      <p>감지 피드백은 이미지가 없으면 확인하기 어렵습니다. 그래서 공개로 올리기보다 메일로 보내 주시는 편이 좋습니다. 화면 캡처와 함께, 가능하면 감지에 실패한 실제 이미지, 그리고 어디가 가려졌어야 하는지 짧은 설명을 첨부해 주세요. 그 이미지가 있어야 문제를 재현할 수 있습니다.</p>
+      <p>감지 문제는 이미지 없이는 확인하기 어렵습니다. 공개 댓글에 이미지를 올리지 말고 메일로 보내 주세요. 가능하면 화면 캡처, 문제가 생긴 이미지, 가려졌어야 할 위치를 함께 적어 주세요.</p>
       <h3>개선 아이디어를 남길 때</h3>
-      <p>개선 아이디어는 Tistory 댓글이 가장 좋습니다. 구체적으로 적어 주실수록 도움이 됩니다. 무엇이 불편했는지, 어떤 화면이나 단계에서 생겼는지, 기대한 결과는 무엇이었는지, 어떻게 하면 작업이 더 편해질지 적어 주세요. 막연한 피드백은 반영하기 어렵지만, 구체적인 재현 단계와 기대 동작은 앱을 개선하는 데 큰 도움이 됩니다.</p>
+      <p>개선 아이디어는 Tistory 댓글로 남겨 주세요. 무엇이 불편했는지, 어떤 화면이나 단계에서 생겼는지, 기대한 결과는 무엇이었는지 적어 주시면 반영하기 좋습니다.</p>
     </section>
 
     <section class="acr-sec" id="ko-feedback">
@@ -412,8 +412,8 @@
   <section class="acr-lang acr-lang--en" data-acr-panel="en">
     <header class="acr-hero">
       <span class="acr-kicker">AutoCensoR User Manual</span>
-      <h1 class="acr-h1">Run the folder first,<br>then fix <em>only what matters.</em></h1>
-      <p class="acr-lede">AutoCensoR is a Windows desktop app that detects regions to protect across an image folder, processes them in one batch, and lets you finish the rest by hand with brush and region tools.</p>
+      <h1 class="acr-h1">Run the folder first,<br>then fix <span class="acr-mark">only what matters.</span></h1>
+      <p class="acr-lede">AutoCensoR is a Windows desktop app for protecting image folders. Load a folder, run the batch, then finish missed spots with brush and region tools.</p>
       <ul class="acr-meta">
         <li>Platform · Windows</li>
         <li>Auto pass + manual touch-up</li>
@@ -424,10 +424,10 @@
 
     <figure class="acr-fig">
       <img src="https://jhks24.github.io/AutoCensoR-Site/assets/release-app-en.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="release-app-en.png" loading="eager" decoding="sync" alt="AutoCensoR running in English: model ready, folder list loaded, and batch processing available">
-      <figcaption>AutoCensoR running in English with the model ready. This public guide never includes private paths or sensitive images.</figcaption>
+      <figcaption>English interface with the model loaded.</figcaption>
     </figure>
 
-    <div class="acr-note"><b>About these screenshots:</b> the captures below show the English interface. The example image inside each one is a test image, not a real photo, and public screenshots never include private paths.</div>
+    <div class="acr-note"><b>About these screenshots:</b> the captures below use the English interface and sample images.</div>
 
     <nav class="acr-toc" aria-label="Table of contents">
       <strong>Contents</strong>
@@ -459,7 +459,7 @@
         <li><b>Fix only what's needed</b><span>Touch up what automation missed with brush and region tools.</span></li>
         <li><b>Output saved automatically</b><span>Results are written to an output folder with a suffix.</span></li>
       </ul>
-      <div class="acr-note"><b>An honest note:</b> it does not guarantee perfect automatic censoring. Automation finds candidates quickly; the final judgment and clean-up are yours. Originals are never overwritten, and results go to a separate output folder.</div>
+      <div class="acr-note"><b>Note:</b> automatic results still need a quick check. Originals stay untouched; outputs are saved separately.</div>
     </section>
 
     <section class="acr-sec" id="en-quick">
@@ -644,7 +644,7 @@
 
     <section class="acr-sec" id="en-privacy">
       <div class="acr-sec__h"><span class="acr-sec__n">14</span><h2>Before you comment</h2></div>
-      <p>Most questions are easy to handle in public comments. A few are better sent by email. Here is where to send what.</p>
+      <p>Use comments for general questions. Send image-specific reports by email.</p>
       <div class="acr-tablewrap">
         <table class="acr-table">
           <thead><tr><th>What you need help with</th><th>Where to send it</th></tr></thead>
@@ -656,12 +656,12 @@
       </div>
       <div class="acr-note acr-note--safe">
         <p style="margin:0 0 8px"><b>Keep public comments free of private data.</b></p>
-        <p style="margin:0;color:inherit">Please do not post sensitive images, private file paths, account names, or personal data in public comments. When a screenshot is needed, hide personal details first and crop to only what matters.</p>
+        <p style="margin:0;color:inherit">Do not post sensitive images, private paths, or account details in public comments. Crop screenshots to the part in question.</p>
       </div>
       <h3>Reporting a detection problem</h3>
-      <p>Detection feedback is hard to act on without the image, so please send it by email rather than posting it publicly. Attach a screenshot and, when possible, the actual image that failed detection, plus a short note on what should have been covered. That image evidence is what makes the problem reproducible.</p>
+      <p>Detection issues are hard to reproduce without the image. Email them instead of posting the image publicly. Include a screenshot, the image if possible, and what should have been covered.</p>
       <h3>Suggesting an improvement</h3>
-      <p>For improvement ideas, a Tistory comment is perfect. Concrete details help the most: what felt inconvenient, which screen or step it happened on, what result you expected, and what would make the workflow easier. Vague feedback is hard to act on, while specific reproduction steps and expected behavior make the app easier to improve.</p>
+      <p>For improvement ideas, leave a Tistory comment. It helps to say what felt inconvenient, which screen or step it happened on, and what result you expected.</p>
     </section>
 
     <section class="acr-sec" id="en-feedback">
