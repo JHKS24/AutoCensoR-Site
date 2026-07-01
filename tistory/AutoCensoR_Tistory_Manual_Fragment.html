@@ -11,13 +11,19 @@
     .acr-post code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f3eef0;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;color:#a32d44}
     .acr-post hr.acr-rule{border:0;border-top:1px solid var(--line);margin:34px 0}
 
-    /* language switch */
+    /* script-free language switch */
+    .acr-lang-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
     .acr-langbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
     .acr-langbar .acr-langlabel{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
     .acr-tabs{display:inline-flex;gap:4px;background:#f4eef0;border:1px solid var(--line);border-radius:999px;padding:4px}
-    .acr-tabs button{border:0;background:transparent;border-radius:999px;padding:7px 18px;font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;font-family:inherit}
-    .acr-tabs button[aria-pressed=true]{background:var(--garnet);color:#fff}
-    .acr-lang{display:none}.acr-lang.is-on{display:block}
+    .acr-tab{border:0;background:transparent;border-radius:999px;padding:7px 18px;font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;line-height:1.2}
+    .acr-langbar .acr-tab--ko{background:var(--garnet);color:#fff}
+    #acr-lang-en:checked ~ .acr-langbar .acr-tab--ko{background:transparent;color:var(--garnet)}
+    #acr-lang-en:checked ~ .acr-langbar .acr-tab--en{background:var(--garnet);color:#fff}
+    .acr-lang--ko{display:block}
+    .acr-lang--en{display:none}
+    #acr-lang-en:checked ~ .acr-lang--ko{display:none}
+    #acr-lang-en:checked ~ .acr-lang--en{display:block}
 
     /* hero */
     .acr-hero{padding:18px 0 6px;border-bottom:1px solid var(--line);margin-bottom:8px}
@@ -31,19 +37,10 @@
     /* figures */
     .acr-fig{margin:18px 0;position:relative}
     .acr-fig--crop{max-width:340px;margin-inline:auto}
-    .acr-fig img{border:1px solid var(--line);background:#fff;box-shadow:0 10px 26px rgba(40,18,28,.06);cursor:zoom-in}
+    .acr-fig img{border:1px solid var(--line);background:#fff;box-shadow:0 10px 26px rgba(40,18,28,.06)}
     .acr-fig figcaption{font-size:13.5px;color:var(--muted);margin-top:9px;padding-left:2px}
     .acr-figrow{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:18px 0}
     .acr-figrow figure{margin:0}
-    .acr-fig::after{content:"\2922";position:absolute;top:12px;right:12px;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(20,18,22,.7);color:#fff;font-size:15px;line-height:1;opacity:.62;transition:opacity .15s ease;pointer-events:none}
-    .acr-fig:hover::after{opacity:1}
-
-    /* click-to-enlarge lightbox */
-    .acr-lightbox{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:rgba(8,10,14,.9);padding:24px;cursor:zoom-out}
-    .acr-lightbox[hidden]{display:none!important}
-    .acr-lightbox__img{max-width:min(96vw,1400px);max-height:88vh;width:auto;height:auto;border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.55);background:#0e131a;cursor:default}
-    .acr-lightbox__close{position:absolute;top:16px;right:18px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:24px;line-height:1;cursor:pointer}
-    .acr-lightbox__close:hover{background:rgba(255,255,255,.28)}
 
     /* table of contents */
     .acr-toc{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:22px 0 6px;background:#fbf8f9}
@@ -121,16 +118,19 @@
     }
   </style>
 
+  <input class="acr-lang-input" type="radio" name="acr-lang-switch" id="acr-lang-ko" checked>
+  <input class="acr-lang-input" type="radio" name="acr-lang-switch" id="acr-lang-en">
+
   <div class="acr-langbar">
     <span class="acr-langlabel">Language</span>
     <div class="acr-tabs" role="tablist" aria-label="언어 선택 / Language switch">
-      <button type="button" data-acr-lang="ko" aria-pressed="true">한국어</button>
-      <button type="button" data-acr-lang="en" aria-pressed="false">English</button>
+      <label class="acr-tab acr-tab--ko" for="acr-lang-ko" role="tab">한국어</label>
+      <label class="acr-tab acr-tab--en" for="acr-lang-en" role="tab">English</label>
     </div>
   </div>
 
   <!-- ====================== KOREAN ====================== -->
-  <section class="acr-lang is-on" data-acr-panel="ko">
+  <section class="acr-lang acr-lang--ko" data-acr-panel="ko">
     <header class="acr-hero">
       <span class="acr-kicker">AutoCensoR 사용 설명서</span>
       <h1 class="acr-h1">폴더는 먼저 처리하고,<br><em>필요한 곳만</em> 직접 다듬습니다.</h1>
@@ -144,29 +144,29 @@
     </header>
 
     <figure class="acr-fig">
-      <img src="https://jhks24.github.io/AutoCensoR-Site/assets/release-app.png" alt="AutoCensoR 작업 화면: 모델이 준비되어 일괄 처리를 시작할 수 있는 상태">
+      <img src="https://jhks24.github.io/AutoCensoR-Site/assets/release-app.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="release-app.png" loading="eager" decoding="sync" alt="AutoCensoR 작업 화면: 모델이 준비되어 일괄 처리를 시작할 수 있는 상태">
       <figcaption>AutoCensoR 작업 화면: 모델이 준비된 상태입니다. 공개 글에는 개인 경로나 민감 이미지를 넣지 않습니다.</figcaption>
     </figure>
 
     <nav class="acr-toc" aria-label="목차">
       <strong>목차</strong>
       <ol>
-        <li><a href="#ko-what" data-acr-jump="ko-what"><span class="n">01</span>AutoCensoR가 하는 일</a></li>
-        <li><a href="#ko-quick" data-acr-jump="ko-quick"><span class="n">02</span>빠른 시작</a></li>
-        <li><a href="#ko-builds" data-acr-jump="ko-builds"><span class="n">03</span>설치와 빌드: CPU Only vs Full</a></li>
-        <li><a href="#ko-specs" data-acr-jump="ko-specs"><span class="n">04</span>권장 사양</a></li>
-        <li><a href="#ko-model" data-acr-jump="ko-model"><span class="n">05</span>모델 로드와 <code>.pt</code> 모델</a></li>
-        <li><a href="#ko-folder" data-acr-jump="ko-folder"><span class="n">06</span>폴더 작업 흐름</a></li>
-        <li><a href="#ko-batch" data-acr-jump="ko-batch"><span class="n">07</span>일괄 처리</a></li>
-        <li><a href="#ko-styles" data-acr-jump="ko-styles"><span class="n">08</span>보호 방식</a></li>
-        <li><a href="#ko-sens" data-acr-jump="ko-sens"><span class="n">09</span>감지 민감도</a></li>
-        <li><a href="#ko-tools" data-acr-jump="ko-tools"><span class="n">10</span>수동 보정 도구</a></li>
-        <li><a href="#ko-save" data-acr-jump="ko-save"><span class="n">11</span>자동 저장과 출력</a></li>
-        <li><a href="#ko-keys" data-acr-jump="ko-keys"><span class="n">12</span>단축키 한눈에</a></li>
-        <li><a href="#ko-trouble" data-acr-jump="ko-trouble"><span class="n">13</span>문제 해결</a></li>
-        <li><a href="#ko-privacy" data-acr-jump="ko-privacy"><span class="n">14</span>댓글을 남기기 전에</a></li>
-        <li><a href="#ko-feedback" data-acr-jump="ko-feedback"><span class="n">15</span>댓글로 문의하기</a></li>
-        <li><a href="#ko-commercial" data-acr-jump="ko-commercial"><span class="n">16</span>상업적 이용 문의</a></li>
+        <li><a href="#ko-what"><span class="n">01</span>AutoCensoR가 하는 일</a></li>
+        <li><a href="#ko-quick"><span class="n">02</span>빠른 시작</a></li>
+        <li><a href="#ko-builds"><span class="n">03</span>설치와 빌드: CPU Only vs Full</a></li>
+        <li><a href="#ko-specs"><span class="n">04</span>권장 사양</a></li>
+        <li><a href="#ko-model"><span class="n">05</span>모델 로드와 <code>.pt</code> 모델</a></li>
+        <li><a href="#ko-folder"><span class="n">06</span>폴더 작업 흐름</a></li>
+        <li><a href="#ko-batch"><span class="n">07</span>일괄 처리</a></li>
+        <li><a href="#ko-styles"><span class="n">08</span>보호 방식</a></li>
+        <li><a href="#ko-sens"><span class="n">09</span>감지 민감도</a></li>
+        <li><a href="#ko-tools"><span class="n">10</span>수동 보정 도구</a></li>
+        <li><a href="#ko-save"><span class="n">11</span>자동 저장과 출력</a></li>
+        <li><a href="#ko-keys"><span class="n">12</span>단축키 한눈에</a></li>
+        <li><a href="#ko-trouble"><span class="n">13</span>문제 해결</a></li>
+        <li><a href="#ko-privacy"><span class="n">14</span>댓글을 남기기 전에</a></li>
+        <li><a href="#ko-feedback"><span class="n">15</span>댓글로 문의하기</a></li>
+        <li><a href="#ko-commercial"><span class="n">16</span>상업적 이용 문의</a></li>
       </ol>
     </nav>
 
@@ -231,7 +231,7 @@
       <div class="acr-sec__h"><span class="acr-sec__n">05</span><h2>모델 로드와 <code>.pt</code> 모델</h2></div>
       <p>우측 상단의 <b>모델 로드</b> 버튼을 누릅니다. 로드 전에는 ‘로드 안 됨’으로 표시되고, 자동 감지가 동작하지 않습니다. 호환되는 <code>.pt</code> 모델을 불러오면 자동 감지가 준비되어 일괄 처리를 시작할 수 있습니다.</p>
       <figure class="acr-fig acr-fig--crop">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/cursor-loadmodel.png" alt="앱 화면: 상단 오른쪽 모델 로드 영역">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/cursor-loadmodel.png" data-is-animation="false" data-origin-width="129" data-origin-height="30" data-filename="cursor-loadmodel.png" loading="eager" decoding="sync" alt="앱 화면: 상단 오른쪽 모델 로드 영역">
         <figcaption>상단 오른쪽 ‘모델 로드’ 영역. 모델을 불러오면 자동 감지가 켜집니다.</figcaption>
       </figure>
       <div class="acr-note">모델 가중치 파일은 앱에 포함되어 있지 않습니다. 사용자가 직접 호환 <code>.pt</code> 모델을 준비해 모델 로드 버튼으로 불러오세요. 모델 파일 위치 안내는 배포 페이지의 모델 가이드를 참고하면 됩니다.</div>
@@ -241,8 +241,8 @@
       <div class="acr-sec__h"><span class="acr-sec__n">06</span><h2>폴더 작업 흐름</h2></div>
       <p>입력 폴더 버튼으로 폴더를 선택하면, 폴더 안 이미지가 왼쪽 목록에 채워지고 ‘대기 중(PENDING)’으로 표시됩니다. 좌측 탭(전체 · 검열됨 · 정상 · 대기 중 · 실패)으로 상태별로 추려 볼 수 있습니다.</p>
       <div class="acr-figrow">
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-empty.png" alt="앱 화면: 폴더를 열기 전 빈 작업공간"><figcaption>① 빈 작업공간: 폴더를 열기 전 첫 화면.</figcaption></figure>
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-scan.png" alt="앱 화면: 폴더를 스캔해 이미지가 ‘대기 중’으로 채워진 목록"><figcaption>② 폴더 스캔: 목록이 채워지고 ‘대기 중’으로 표시됩니다.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-empty.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="state-empty.png" loading="eager" decoding="sync" alt="앱 화면: 폴더를 열기 전 빈 작업공간"><figcaption>① 빈 작업공간: 폴더를 열기 전 첫 화면.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-scan.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="state-scan.png" loading="eager" decoding="sync" alt="앱 화면: 폴더를 스캔해 이미지가 ‘대기 중’으로 채워진 목록"><figcaption>② 폴더 스캔: 목록이 채워지고 ‘대기 중’으로 표시됩니다.</figcaption></figure>
       </div>
     </section>
 
@@ -250,7 +250,7 @@
       <div class="acr-sec__h"><span class="acr-sec__n">07</span><h2>일괄 처리</h2></div>
       <p>일괄 시작(F5) 버튼을 누르면 폴더 전체를 한 번에 처리합니다. 감지된 영역에 선택한 보호 방식(모자이크·블러·흑백·단색)이 적용되고, 하단에 처리 완료 개수와 소요 시간이 표시됩니다.</p>
       <figure class="acr-fig">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-processed.png" alt="앱 화면: 일괄 처리가 끝난 화면 (예시는 테스트 이미지)">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-processed.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="state-processed.png" loading="eager" decoding="sync" alt="앱 화면: 일괄 처리가 끝난 화면 (예시는 테스트 이미지)">
         <figcaption>앱 화면: 일괄 처리 완료. 화면의 예시는 테스트 이미지입니다.</figcaption>
       </figure>
     </section>
@@ -304,8 +304,8 @@
         </table>
       </div>
       <div class="acr-figrow">
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/manual-correction.png" alt="앱 화면: 수동 보정 중인 화면 (브러시 커서가 보임)"><figcaption>앱 화면: 필요한 곳만 직접 보정.</figcaption></figure>
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-region-detect.png" alt="앱 화면: 영역 감지로 지정한 사각 영역에 보호가 적용된 모습"><figcaption>앱 화면: 영역 감지로 한 번에 보호.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/manual-correction.png" data-is-animation="false" data-origin-width="1020" data-origin-height="827" data-filename="manual-correction.png" loading="eager" decoding="sync" alt="앱 화면: 수동 보정 중인 화면 (브러시 커서가 보임)"><figcaption>앱 화면: 필요한 곳만 직접 보정.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-region-detect.png" data-is-animation="false" data-origin-width="1020" data-origin-height="827" data-filename="detail-region-detect.png" loading="eager" decoding="sync" alt="앱 화면: 영역 감지로 지정한 사각 영역에 보호가 적용된 모습"><figcaption>앱 화면: 영역 감지로 한 번에 보호.</figcaption></figure>
       </div>
     </section>
 
@@ -313,7 +313,7 @@
       <div class="acr-sec__h"><span class="acr-sec__n">11</span><h2>자동 저장과 출력</h2></div>
       <p>처리와 보정 결과는 작업을 진행하는 동안 <b>자동으로 적용·저장</b>됩니다. 출력 폴더에 접미사를 붙여 저장되며, 별도의 수동 저장 단계를 누를 필요가 없습니다. 원본은 그대로 두고 결과만 출력 폴더에 따로 저장됩니다.</p>
       <figure class="acr-fig">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-settings-dialog.png" alt="앱 화면: 설정 대화상자의 저장 탭">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-settings-dialog.png" data-is-animation="false" data-origin-width="700" data-origin-height="500" data-filename="detail-settings-dialog.png" loading="eager" decoding="sync" alt="앱 화면: 설정 대화상자의 저장 탭">
         <figcaption>앱 화면: 저장 설정 대화상자. 출력 형식·품질·파일명 접미사·출력 폴더를 바꿀 수 있습니다.</figcaption>
       </figure>
       <div class="acr-note"><b>참고:</b> 출력 폴더, 파일명 접미사, 품질은 <b>설정 → 저장</b>에서 조정합니다.</div>
@@ -344,7 +344,7 @@
         </table>
       </div>
       <figure class="acr-fig">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-shortcuts.png" alt="앱 화면: 단축키 도움말 패널">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-shortcuts.png" data-is-animation="false" data-origin-width="380" data-origin-height="420" data-filename="detail-shortcuts.png" loading="eager" decoding="sync" alt="앱 화면: 단축키 도움말 패널">
         <figcaption>앱 화면: 단축키 도움말 패널.</figcaption>
       </figure>
     </section>
@@ -388,7 +388,7 @@
       <div class="acr-cta">
         <h3>질문·버그·제안은 이 글의 댓글로 남겨 주세요</h3>
         <p>질문, 버그 제보, 개선 제안은 이 글 <b>아래의 댓글</b>로 남겨 주세요. 공개 댓글에는 개인 경로, 계정 정보, 민감한 이미지를 올리지 말아 주세요.</p>
-        <a class="acr-btn acr-btn--ghost" href="#acr-top" data-acr-jump="acr-top">맨 위로</a>
+        <a class="acr-btn acr-btn--ghost" href="#acr-top">맨 위로</a>
       </div>
     </section>
 
@@ -409,7 +409,7 @@
   </section>
 
   <!-- ====================== ENGLISH ====================== -->
-  <section class="acr-lang" data-acr-panel="en">
+  <section class="acr-lang acr-lang--en" data-acr-panel="en">
     <header class="acr-hero">
       <span class="acr-kicker">AutoCensoR User Manual</span>
       <h1 class="acr-h1">Run the folder first,<br>then fix <em>only what matters.</em></h1>
@@ -423,7 +423,7 @@
     </header>
 
     <figure class="acr-fig">
-      <img src="https://jhks24.github.io/AutoCensoR-Site/assets/real-full-en.png" alt="AutoCensoR running in English: an empty workspace before a folder is loaded">
+      <img src="https://jhks24.github.io/AutoCensoR-Site/assets/real-full-en.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="real-full-en.png" loading="eager" decoding="sync" alt="AutoCensoR running in English: an empty workspace before a folder is loaded">
       <figcaption>AutoCensoR running in English. This public guide never includes private paths or sensitive images.</figcaption>
     </figure>
 
@@ -432,22 +432,22 @@
     <nav class="acr-toc" aria-label="Table of contents">
       <strong>Contents</strong>
       <ol>
-        <li><a href="#en-what" data-acr-jump="en-what"><span class="n">01</span>What AutoCensoR does</a></li>
-        <li><a href="#en-quick" data-acr-jump="en-quick"><span class="n">02</span>Quick start</a></li>
-        <li><a href="#en-builds" data-acr-jump="en-builds"><span class="n">03</span>Installation &amp; builds: CPU Only vs Full</a></li>
-        <li><a href="#en-specs" data-acr-jump="en-specs"><span class="n">04</span>Recommended specs</a></li>
-        <li><a href="#en-model" data-acr-jump="en-model"><span class="n">05</span>Model loading &amp; the <code>.pt</code> model</a></li>
-        <li><a href="#en-folder" data-acr-jump="en-folder"><span class="n">06</span>Folder workflow</a></li>
-        <li><a href="#en-batch" data-acr-jump="en-batch"><span class="n">07</span>Batch processing</a></li>
-        <li><a href="#en-styles" data-acr-jump="en-styles"><span class="n">08</span>Protection styles</a></li>
-        <li><a href="#en-sens" data-acr-jump="en-sens"><span class="n">09</span>Detection sensitivity</a></li>
-        <li><a href="#en-tools" data-acr-jump="en-tools"><span class="n">10</span>Manual correction tools</a></li>
-        <li><a href="#en-save" data-acr-jump="en-save"><span class="n">11</span>Auto-save &amp; output</a></li>
-        <li><a href="#en-keys" data-acr-jump="en-keys"><span class="n">12</span>Shortcuts overview</a></li>
-        <li><a href="#en-trouble" data-acr-jump="en-trouble"><span class="n">13</span>Troubleshooting</a></li>
-        <li><a href="#en-privacy" data-acr-jump="en-privacy"><span class="n">14</span>Before you comment</a></li>
-        <li><a href="#en-feedback" data-acr-jump="en-feedback"><span class="n">15</span>Feedback via comments</a></li>
-        <li><a href="#en-commercial" data-acr-jump="en-commercial"><span class="n">16</span>Commercial use</a></li>
+        <li><a href="#en-what"><span class="n">01</span>What AutoCensoR does</a></li>
+        <li><a href="#en-quick"><span class="n">02</span>Quick start</a></li>
+        <li><a href="#en-builds"><span class="n">03</span>Installation &amp; builds: CPU Only vs Full</a></li>
+        <li><a href="#en-specs"><span class="n">04</span>Recommended specs</a></li>
+        <li><a href="#en-model"><span class="n">05</span>Model loading &amp; the <code>.pt</code> model</a></li>
+        <li><a href="#en-folder"><span class="n">06</span>Folder workflow</a></li>
+        <li><a href="#en-batch"><span class="n">07</span>Batch processing</a></li>
+        <li><a href="#en-styles"><span class="n">08</span>Protection styles</a></li>
+        <li><a href="#en-sens"><span class="n">09</span>Detection sensitivity</a></li>
+        <li><a href="#en-tools"><span class="n">10</span>Manual correction tools</a></li>
+        <li><a href="#en-save"><span class="n">11</span>Auto-save &amp; output</a></li>
+        <li><a href="#en-keys"><span class="n">12</span>Shortcuts overview</a></li>
+        <li><a href="#en-trouble"><span class="n">13</span>Troubleshooting</a></li>
+        <li><a href="#en-privacy"><span class="n">14</span>Before you comment</a></li>
+        <li><a href="#en-feedback"><span class="n">15</span>Feedback via comments</a></li>
+        <li><a href="#en-commercial"><span class="n">16</span>Commercial use</a></li>
       </ol>
     </nav>
 
@@ -512,7 +512,7 @@
       <div class="acr-sec__h"><span class="acr-sec__n">05</span><h2>Model loading &amp; the <code>.pt</code> model</h2></div>
       <p>Press the <b>Load Model</b> button at the top right. Before loading it shows “not loaded” and detection does not run. Once a compatible <code>.pt</code> model is loaded, detection becomes ready and you can start batch processing.</p>
       <figure class="acr-fig acr-fig--crop">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/cursor-loadmodel-en.png" alt="App screen: the model load area at the top right">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/cursor-loadmodel-en.png" data-is-animation="false" data-origin-width="136" data-origin-height="30" data-filename="cursor-loadmodel-en.png" loading="eager" decoding="sync" alt="App screen: the model load area at the top right">
         <figcaption>The “Load Model” control at the top right. Detection turns on after loading completes.</figcaption>
       </figure>
       <div class="acr-note">Model weight files are not bundled with the app. Prepare your own compatible <code>.pt</code> model and load it with Load Model. For where to place the model file, see the model guide on the downloads page.</div>
@@ -522,8 +522,8 @@
       <div class="acr-sec__h"><span class="acr-sec__n">06</span><h2>Folder workflow</h2></div>
       <p>Open an input folder with the Input Folder button, and its images fill the list on the left, marked “PENDING”. Use the left-side tabs (All · Censored · Clean · Pending · Failed) to filter by status.</p>
       <div class="acr-figrow">
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-empty-en.png" alt="App screen: empty workspace before a folder is opened"><figcaption>① Empty workspace: the first screen before opening a folder.</figcaption></figure>
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-scan-en.png" alt="App screen: folder scanned, images listed as pending"><figcaption>② Folder scanned: the list fills in and shows “pending”.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-empty-en.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="state-empty-en.png" loading="eager" decoding="sync" alt="App screen: empty workspace before a folder is opened"><figcaption>① Empty workspace: the first screen before opening a folder.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-scan-en.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="state-scan-en.png" loading="eager" decoding="sync" alt="App screen: folder scanned, images listed as pending"><figcaption>② Folder scanned: the list fills in and shows “pending”.</figcaption></figure>
       </div>
     </section>
 
@@ -531,7 +531,7 @@
       <div class="acr-sec__h"><span class="acr-sec__n">07</span><h2>Batch processing</h2></div>
       <p>Press Start Batch (F5) to process the whole folder at once. Your chosen protection style (mosaic, blur, grayscale, or solid) is applied to detected regions, and the bottom bar shows the completed count and elapsed time.</p>
       <figure class="acr-fig">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-processed-en.png" alt="App screen: batch processing finished (example uses a test image)">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/state-processed-en.png" data-is-animation="false" data-origin-width="1600" data-origin-height="930" data-filename="state-processed-en.png" loading="eager" decoding="sync" alt="App screen: batch processing finished (example uses a test image)">
         <figcaption>App screen: batch processing complete. The example on screen is a test image.</figcaption>
       </figure>
     </section>
@@ -585,8 +585,8 @@
         </table>
       </div>
       <div class="acr-figrow">
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/manual-correction-en.png" alt="App screen: manual correction in progress (brush cursor visible)"><figcaption>App screen: touching up only what's needed.</figcaption></figure>
-        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-region-detect-en.png" alt="App screen: a region protected in one action"><figcaption>App screen: Region detect protects in one action.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/manual-correction-en.png" data-is-animation="false" data-origin-width="1020" data-origin-height="827" data-filename="manual-correction-en.png" loading="eager" decoding="sync" alt="App screen: manual correction in progress (brush cursor visible)"><figcaption>App screen: touching up only what's needed.</figcaption></figure>
+        <figure class="acr-fig"><img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-region-detect-en.png" data-is-animation="false" data-origin-width="1020" data-origin-height="827" data-filename="detail-region-detect-en.png" loading="eager" decoding="sync" alt="App screen: a region protected in one action"><figcaption>App screen: Region detect protects in one action.</figcaption></figure>
       </div>
     </section>
 
@@ -594,7 +594,7 @@
       <div class="acr-sec__h"><span class="acr-sec__n">11</span><h2>Auto-save &amp; output</h2></div>
       <p>Processing and correction results are <b>applied and saved automatically</b> as you work. They are written to the output folder with a suffix, so there is no separate manual save step. Originals are left untouched; only the results go to the output folder.</p>
       <figure class="acr-fig">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-settings-dialog-en.png" alt="App screen: the Save tab of the settings dialog">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-settings-dialog-en.png" data-is-animation="false" data-origin-width="700" data-origin-height="500" data-filename="detail-settings-dialog-en.png" loading="eager" decoding="sync" alt="App screen: the Save tab of the settings dialog">
         <figcaption>App screen: the save settings dialog. You can change output format, quality, filename suffix, and output folder.</figcaption>
       </figure>
       <div class="acr-note"><b>Note:</b> output folder, filename suffix, and quality are adjusted under <b>Settings → Save</b>.</div>
@@ -625,7 +625,7 @@
         </table>
       </div>
       <figure class="acr-fig">
-        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-shortcuts-en.png" alt="App screen: shortcuts help panel">
+        <img src="https://jhks24.github.io/AutoCensoR-Site/assets/detail-shortcuts-en.png" data-is-animation="false" data-origin-width="380" data-origin-height="420" data-filename="detail-shortcuts-en.png" loading="eager" decoding="sync" alt="App screen: shortcuts help panel">
         <figcaption>App screen: shortcuts help panel.</figcaption>
       </figure>
     </section>
@@ -669,7 +669,7 @@
       <div class="acr-cta">
         <h3>Leave questions, bugs, and ideas in the comments</h3>
         <p>For questions, bug reports, and improvement requests, use the <b>comment section below</b> this post. Do not post private paths, account details, or sensitive images in public comments.</p>
-        <a class="acr-btn acr-btn--ghost" href="#acr-top" data-acr-jump="acr-top">Back to top</a>
+        <a class="acr-btn acr-btn--ghost" href="#acr-top">Back to top</a>
       </div>
     </section>
 
@@ -688,73 +688,7 @@
       <p style="margin:6px 0 0">Questions and ideas go in the comments; commercial use goes to <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">email</a>.</p>
     </footer>
   </section>
-
-  <script>
-    (function () {
-      var root = document.currentScript.closest(".acr-post");
-      if (!root) return;
-      var btns = [].slice.call(root.querySelectorAll("[data-acr-lang]"));
-      var panels = [].slice.call(root.querySelectorAll("[data-acr-panel]"));
-      btns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var lang = btn.getAttribute("data-acr-lang");
-          btns.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
-          panels.forEach(function (p) { p.classList.toggle("is-on", p.getAttribute("data-acr-panel") === lang); });
-        });
-      });
-      // In-article smooth jump for the table of contents (scoped to this post).
-      root.addEventListener("click", function (e) {
-        var a = e.target.closest("[data-acr-jump]");
-        if (!a || !root.contains(a)) return;
-        var id = a.getAttribute("data-acr-jump");
-        var target = root.querySelector("#" + id);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      // Click-to-enlarge for figure screenshots (scoped to this post).
-      var figImgs = [].slice.call(root.querySelectorAll(".acr-fig img"));
-      if (figImgs.length) {
-        var box = document.createElement("div");
-        box.className = "acr-lightbox";
-        box.setAttribute("hidden", "");
-        box.setAttribute("role", "dialog");
-        box.setAttribute("aria-modal", "true");
-        box.setAttribute("aria-label", "이미지 크게 보기 / Enlarged image");
-        var big = document.createElement("img");
-        big.className = "acr-lightbox__img";
-        big.alt = "";
-        var close = document.createElement("button");
-        close.type = "button";
-        close.className = "acr-lightbox__close";
-        close.setAttribute("aria-label", "닫기 / Close");
-        close.innerHTML = "&times;";
-        box.appendChild(big);
-        box.appendChild(close);
-        document.body.appendChild(box);
-        function lbOpen(src, alt) {
-          if (!src) return;
-          big.src = src; big.alt = alt || "";
-          box.removeAttribute("hidden");
-          document.documentElement.style.overflow = "hidden";
-          close.focus();
-        }
-        function lbHide() {
-          box.setAttribute("hidden", "");
-          big.removeAttribute("src");
-          document.documentElement.style.overflow = "";
-        }
-        figImgs.forEach(function (im) {
-          im.addEventListener("click", function () { lbOpen(im.currentSrc || im.src, im.alt); });
-        });
-        close.addEventListener("click", lbHide);
-        box.addEventListener("click", function (e) { if (e.target === box) lbHide(); });
-        big.addEventListener("click", function (e) { e.stopPropagation(); });
-        document.addEventListener("keydown", function (e) {
-          if (!box.hasAttribute("hidden") && (e.key === "Escape" || e.key === "Esc")) lbHide();
-        });
-      }
-    })();
-  </script>
 </div>
+
+
+
