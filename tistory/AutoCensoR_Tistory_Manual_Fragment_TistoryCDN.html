@@ -11,13 +11,17 @@
     .acr-post code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f3eef0;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;color:#a32d44}
     .acr-post hr.acr-rule{border:0;border-top:1px solid var(--line);margin:34px 0}
 
-    /* language switch */
+    /* script-free language switch */
+    .acr-lang-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
     .acr-langbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
     .acr-langbar .acr-langlabel{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
     .acr-tabs{display:inline-flex;gap:4px;background:#f4eef0;border:1px solid var(--line);border-radius:999px;padding:4px}
-    .acr-tabs button{border:0;background:transparent;border-radius:999px;padding:7px 18px;font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;font-family:inherit}
-    .acr-tabs button[aria-pressed=true]{background:var(--garnet);color:#fff}
-    .acr-lang{display:none}.acr-lang.is-on{display:block}
+    .acr-tab{border:0;background:transparent;border-radius:999px;padding:7px 18px;font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;line-height:1.2}
+    #acr-lang-ko:checked ~ .acr-langbar .acr-tab--ko,
+    #acr-lang-en:checked ~ .acr-langbar .acr-tab--en{background:var(--garnet);color:#fff}
+    .acr-lang{display:none}
+    #acr-lang-ko:checked ~ .acr-lang--ko,
+    #acr-lang-en:checked ~ .acr-lang--en{display:block}
 
     /* hero */
     .acr-hero{padding:18px 0 6px;border-bottom:1px solid var(--line);margin-bottom:8px}
@@ -31,19 +35,10 @@
     /* figures */
     .acr-fig{margin:18px 0;position:relative}
     .acr-fig--crop{max-width:340px;margin-inline:auto}
-    .acr-fig img{border:1px solid var(--line);background:#fff;box-shadow:0 10px 26px rgba(40,18,28,.06);cursor:zoom-in}
+    .acr-fig img{border:1px solid var(--line);background:#fff;box-shadow:0 10px 26px rgba(40,18,28,.06)}
     .acr-fig figcaption{font-size:13.5px;color:var(--muted);margin-top:9px;padding-left:2px}
     .acr-figrow{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:18px 0}
     .acr-figrow figure{margin:0}
-    .acr-fig::after{content:"\2922";position:absolute;top:12px;right:12px;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(20,18,22,.7);color:#fff;font-size:15px;line-height:1;opacity:.62;transition:opacity .15s ease;pointer-events:none}
-    .acr-fig:hover::after{opacity:1}
-
-    /* click-to-enlarge lightbox */
-    .acr-lightbox{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:rgba(8,10,14,.9);padding:24px;cursor:zoom-out}
-    .acr-lightbox[hidden]{display:none!important}
-    .acr-lightbox__img{max-width:min(96vw,1400px);max-height:88vh;width:auto;height:auto;border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.55);background:#0e131a;cursor:default}
-    .acr-lightbox__close{position:absolute;top:16px;right:18px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:24px;line-height:1;cursor:pointer}
-    .acr-lightbox__close:hover{background:rgba(255,255,255,.28)}
 
     /* table of contents */
     .acr-toc{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:22px 0 6px;background:#fbf8f9}
@@ -121,16 +116,19 @@
     }
   </style>
 
+  <input class="acr-lang-input" type="radio" name="acr-lang-switch" id="acr-lang-ko" checked>
+  <input class="acr-lang-input" type="radio" name="acr-lang-switch" id="acr-lang-en">
+
   <div class="acr-langbar">
     <span class="acr-langlabel">Language</span>
     <div class="acr-tabs" role="tablist" aria-label="언어 선택 / Language switch">
-      <button type="button" data-acr-lang="ko" aria-pressed="true">한국어</button>
-      <button type="button" data-acr-lang="en" aria-pressed="false">English</button>
+      <label class="acr-tab acr-tab--ko" for="acr-lang-ko" role="tab">한국어</label>
+      <label class="acr-tab acr-tab--en" for="acr-lang-en" role="tab">English</label>
     </div>
   </div>
 
   <!-- ====================== KOREAN ====================== -->
-  <section class="acr-lang is-on" data-acr-panel="ko">
+  <section class="acr-lang acr-lang--ko" data-acr-panel="ko">
     <header class="acr-hero">
       <span class="acr-kicker">AutoCensoR 사용 설명서</span>
       <h1 class="acr-h1">폴더는 먼저 처리하고,<br><em>필요한 곳만</em> 직접 다듬습니다.</h1>
@@ -151,22 +149,22 @@
     <nav class="acr-toc" aria-label="목차">
       <strong>목차</strong>
       <ol>
-        <li><a href="#ko-what" data-acr-jump="ko-what"><span class="n">01</span>AutoCensoR가 하는 일</a></li>
-        <li><a href="#ko-quick" data-acr-jump="ko-quick"><span class="n">02</span>빠른 시작</a></li>
-        <li><a href="#ko-builds" data-acr-jump="ko-builds"><span class="n">03</span>설치와 빌드: CPU Only vs Full</a></li>
-        <li><a href="#ko-specs" data-acr-jump="ko-specs"><span class="n">04</span>권장 사양</a></li>
-        <li><a href="#ko-model" data-acr-jump="ko-model"><span class="n">05</span>모델 로드와 <code>.pt</code> 모델</a></li>
-        <li><a href="#ko-folder" data-acr-jump="ko-folder"><span class="n">06</span>폴더 작업 흐름</a></li>
-        <li><a href="#ko-batch" data-acr-jump="ko-batch"><span class="n">07</span>일괄 처리</a></li>
-        <li><a href="#ko-styles" data-acr-jump="ko-styles"><span class="n">08</span>보호 방식</a></li>
-        <li><a href="#ko-sens" data-acr-jump="ko-sens"><span class="n">09</span>감지 민감도</a></li>
-        <li><a href="#ko-tools" data-acr-jump="ko-tools"><span class="n">10</span>수동 보정 도구</a></li>
-        <li><a href="#ko-save" data-acr-jump="ko-save"><span class="n">11</span>자동 저장과 출력</a></li>
-        <li><a href="#ko-keys" data-acr-jump="ko-keys"><span class="n">12</span>단축키 한눈에</a></li>
-        <li><a href="#ko-trouble" data-acr-jump="ko-trouble"><span class="n">13</span>문제 해결</a></li>
-        <li><a href="#ko-privacy" data-acr-jump="ko-privacy"><span class="n">14</span>댓글을 남기기 전에</a></li>
-        <li><a href="#ko-feedback" data-acr-jump="ko-feedback"><span class="n">15</span>댓글로 문의하기</a></li>
-        <li><a href="#ko-commercial" data-acr-jump="ko-commercial"><span class="n">16</span>상업적 이용 문의</a></li>
+        <li><a href="#ko-what"><span class="n">01</span>AutoCensoR가 하는 일</a></li>
+        <li><a href="#ko-quick"><span class="n">02</span>빠른 시작</a></li>
+        <li><a href="#ko-builds"><span class="n">03</span>설치와 빌드: CPU Only vs Full</a></li>
+        <li><a href="#ko-specs"><span class="n">04</span>권장 사양</a></li>
+        <li><a href="#ko-model"><span class="n">05</span>모델 로드와 <code>.pt</code> 모델</a></li>
+        <li><a href="#ko-folder"><span class="n">06</span>폴더 작업 흐름</a></li>
+        <li><a href="#ko-batch"><span class="n">07</span>일괄 처리</a></li>
+        <li><a href="#ko-styles"><span class="n">08</span>보호 방식</a></li>
+        <li><a href="#ko-sens"><span class="n">09</span>감지 민감도</a></li>
+        <li><a href="#ko-tools"><span class="n">10</span>수동 보정 도구</a></li>
+        <li><a href="#ko-save"><span class="n">11</span>자동 저장과 출력</a></li>
+        <li><a href="#ko-keys"><span class="n">12</span>단축키 한눈에</a></li>
+        <li><a href="#ko-trouble"><span class="n">13</span>문제 해결</a></li>
+        <li><a href="#ko-privacy"><span class="n">14</span>댓글을 남기기 전에</a></li>
+        <li><a href="#ko-feedback"><span class="n">15</span>댓글로 문의하기</a></li>
+        <li><a href="#ko-commercial"><span class="n">16</span>상업적 이용 문의</a></li>
       </ol>
     </nav>
 
@@ -388,7 +386,7 @@
       <div class="acr-cta">
         <h3>질문·버그·제안은 이 글의 댓글로 남겨 주세요</h3>
         <p>질문, 버그 제보, 개선 제안은 이 글 <b>아래의 댓글</b>로 남겨 주세요. 공개 댓글에는 개인 경로, 계정 정보, 민감한 이미지를 올리지 말아 주세요.</p>
-        <a class="acr-btn acr-btn--ghost" href="#acr-top" data-acr-jump="acr-top">맨 위로</a>
+        <a class="acr-btn acr-btn--ghost" href="#acr-top">맨 위로</a>
       </div>
     </section>
 
@@ -409,7 +407,7 @@
   </section>
 
   <!-- ====================== ENGLISH ====================== -->
-  <section class="acr-lang" data-acr-panel="en">
+  <section class="acr-lang acr-lang--en" data-acr-panel="en">
     <header class="acr-hero">
       <span class="acr-kicker">AutoCensoR User Manual</span>
       <h1 class="acr-h1">Run the folder first,<br>then fix <em>only what matters.</em></h1>
@@ -432,22 +430,22 @@
     <nav class="acr-toc" aria-label="Table of contents">
       <strong>Contents</strong>
       <ol>
-        <li><a href="#en-what" data-acr-jump="en-what"><span class="n">01</span>What AutoCensoR does</a></li>
-        <li><a href="#en-quick" data-acr-jump="en-quick"><span class="n">02</span>Quick start</a></li>
-        <li><a href="#en-builds" data-acr-jump="en-builds"><span class="n">03</span>Installation &amp; builds: CPU Only vs Full</a></li>
-        <li><a href="#en-specs" data-acr-jump="en-specs"><span class="n">04</span>Recommended specs</a></li>
-        <li><a href="#en-model" data-acr-jump="en-model"><span class="n">05</span>Model loading &amp; the <code>.pt</code> model</a></li>
-        <li><a href="#en-folder" data-acr-jump="en-folder"><span class="n">06</span>Folder workflow</a></li>
-        <li><a href="#en-batch" data-acr-jump="en-batch"><span class="n">07</span>Batch processing</a></li>
-        <li><a href="#en-styles" data-acr-jump="en-styles"><span class="n">08</span>Protection styles</a></li>
-        <li><a href="#en-sens" data-acr-jump="en-sens"><span class="n">09</span>Detection sensitivity</a></li>
-        <li><a href="#en-tools" data-acr-jump="en-tools"><span class="n">10</span>Manual correction tools</a></li>
-        <li><a href="#en-save" data-acr-jump="en-save"><span class="n">11</span>Auto-save &amp; output</a></li>
-        <li><a href="#en-keys" data-acr-jump="en-keys"><span class="n">12</span>Shortcuts overview</a></li>
-        <li><a href="#en-trouble" data-acr-jump="en-trouble"><span class="n">13</span>Troubleshooting</a></li>
-        <li><a href="#en-privacy" data-acr-jump="en-privacy"><span class="n">14</span>Before you comment</a></li>
-        <li><a href="#en-feedback" data-acr-jump="en-feedback"><span class="n">15</span>Feedback via comments</a></li>
-        <li><a href="#en-commercial" data-acr-jump="en-commercial"><span class="n">16</span>Commercial use</a></li>
+        <li><a href="#en-what"><span class="n">01</span>What AutoCensoR does</a></li>
+        <li><a href="#en-quick"><span class="n">02</span>Quick start</a></li>
+        <li><a href="#en-builds"><span class="n">03</span>Installation &amp; builds: CPU Only vs Full</a></li>
+        <li><a href="#en-specs"><span class="n">04</span>Recommended specs</a></li>
+        <li><a href="#en-model"><span class="n">05</span>Model loading &amp; the <code>.pt</code> model</a></li>
+        <li><a href="#en-folder"><span class="n">06</span>Folder workflow</a></li>
+        <li><a href="#en-batch"><span class="n">07</span>Batch processing</a></li>
+        <li><a href="#en-styles"><span class="n">08</span>Protection styles</a></li>
+        <li><a href="#en-sens"><span class="n">09</span>Detection sensitivity</a></li>
+        <li><a href="#en-tools"><span class="n">10</span>Manual correction tools</a></li>
+        <li><a href="#en-save"><span class="n">11</span>Auto-save &amp; output</a></li>
+        <li><a href="#en-keys"><span class="n">12</span>Shortcuts overview</a></li>
+        <li><a href="#en-trouble"><span class="n">13</span>Troubleshooting</a></li>
+        <li><a href="#en-privacy"><span class="n">14</span>Before you comment</a></li>
+        <li><a href="#en-feedback"><span class="n">15</span>Feedback via comments</a></li>
+        <li><a href="#en-commercial"><span class="n">16</span>Commercial use</a></li>
       </ol>
     </nav>
 
@@ -669,7 +667,7 @@
       <div class="acr-cta">
         <h3>Leave questions, bugs, and ideas in the comments</h3>
         <p>For questions, bug reports, and improvement requests, use the <b>comment section below</b> this post. Do not post private paths, account details, or sensitive images in public comments.</p>
-        <a class="acr-btn acr-btn--ghost" href="#acr-top" data-acr-jump="acr-top">Back to top</a>
+        <a class="acr-btn acr-btn--ghost" href="#acr-top">Back to top</a>
       </div>
     </section>
 
@@ -688,75 +686,7 @@
       <p style="margin:6px 0 0">Questions and ideas go in the comments; commercial use goes to <a href="mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry">email</a>.</p>
     </footer>
   </section>
-
-  <script>
-    (function () {
-      var root = document.currentScript.closest(".acr-post");
-      if (!root) return;
-      var btns = [].slice.call(root.querySelectorAll("[data-acr-lang]"));
-      var panels = [].slice.call(root.querySelectorAll("[data-acr-panel]"));
-      btns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var lang = btn.getAttribute("data-acr-lang");
-          btns.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
-          panels.forEach(function (p) { p.classList.toggle("is-on", p.getAttribute("data-acr-panel") === lang); });
-        });
-      });
-      // In-article smooth jump for the table of contents (scoped to this post).
-      root.addEventListener("click", function (e) {
-        var a = e.target.closest("[data-acr-jump]");
-        if (!a || !root.contains(a)) return;
-        var id = a.getAttribute("data-acr-jump");
-        var target = root.querySelector("#" + id);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      // Click-to-enlarge for figure screenshots (scoped to this post).
-      var figImgs = [].slice.call(root.querySelectorAll(".acr-fig img"));
-      if (figImgs.length) {
-        var box = document.createElement("div");
-        box.className = "acr-lightbox";
-        box.setAttribute("hidden", "");
-        box.setAttribute("role", "dialog");
-        box.setAttribute("aria-modal", "true");
-        box.setAttribute("aria-label", "이미지 크게 보기 / Enlarged image");
-        var big = document.createElement("img");
-        big.className = "acr-lightbox__img";
-        big.alt = "";
-        var close = document.createElement("button");
-        close.type = "button";
-        close.className = "acr-lightbox__close";
-        close.setAttribute("aria-label", "닫기 / Close");
-        close.innerHTML = "&times;";
-        box.appendChild(big);
-        box.appendChild(close);
-        document.body.appendChild(box);
-        function lbOpen(src, alt) {
-          if (!src) return;
-          big.src = src; big.alt = alt || "";
-          box.removeAttribute("hidden");
-          document.documentElement.style.overflow = "hidden";
-          close.focus();
-        }
-        function lbHide() {
-          box.setAttribute("hidden", "");
-          big.removeAttribute("src");
-          document.documentElement.style.overflow = "";
-        }
-        figImgs.forEach(function (im) {
-          im.addEventListener("click", function () { lbOpen(im.currentSrc || im.src, im.alt); });
-        });
-        close.addEventListener("click", lbHide);
-        box.addEventListener("click", function (e) { if (e.target === box) lbHide(); });
-        big.addEventListener("click", function (e) { e.stopPropagation(); });
-        document.addEventListener("keydown", function (e) {
-          if (!box.hasAttribute("hidden") && (e.key === "Escape" || e.key === "Esc")) lbHide();
-        });
-      }
-    })();
-  </script>
 </div>
+
 
 
