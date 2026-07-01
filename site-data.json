@@ -13,14 +13,14 @@
     "manual": "tistory/AutoCensoR_Tistory_Manual_Full.html",
     "guide": "guide.html",
     "comparison": "comparison.html",
-    "feedback": "support.html",
+    "feedback": "https://hwoa.tistory.com/",
     "patchNotes": "patch-notes.html"
   },
   "downloads": {
-    "source": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-source.zip",
-    "legacyPython": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Legacy-Python.zip",
-    "cpuOnly": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-CPU_Only.zip",
-    "full": "https://github.com/JHKS24/AutoCensoR/releases/latest/download/AutoCensoR-Full.zip"
+    "source": "https://github.com/JHKS24/AutoCensoR",
+    "legacyPython": "https://github.com/JHKS24/AutoCensor-ReleaseVersion/releases",
+    "cpuOnly": "https://github.com/JHKS24/AutoCensoR-CPU-Only/releases",
+    "full": "https://github.com/JHKS24/AutoCensoR-Full/releases"
   },
   "support": {
     "githubStar": "https://github.com/JHKS24/AutoCensoR",
@@ -30,7 +30,7 @@
   },
   "contact": {
     "tistoryComments": true,
-    "tistoryPostUrl": "tistory/AutoCensoR_Tistory_Manual_Full.html",
+    "tistoryPostUrl": "https://hwoa.tistory.com/",
     "email": "zeus30313@gmail.com",
     "commercialEmail": "zeus30313@gmail.com",
     "commercialEmailLink": "mailto:zeus30313@gmail.com?subject=AutoCensoR%20commercial%20use%20inquiry"
